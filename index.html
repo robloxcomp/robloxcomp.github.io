@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>RobloxComp | Official Rivals Competitions</title>
+    <title>RobloxComp | 25K Robux Rivals Rush Tournament</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -136,7 +136,7 @@
             transform: translateY(-1px);
         }
 
-        /* GLOBAL COUNTDOWN BOX */
+        /* GLOBAL COUNTDOWN BOX - LIVE STYLE */
         .countdown-container {
             background: linear-gradient(135deg, rgba(255, 51, 85, 0.15), rgba(255, 80, 120, 0.08));
             border-radius: 1.5rem;
@@ -145,6 +145,12 @@
             border: 1px solid rgba(255, 70, 100, 0.3);
             backdrop-filter: blur(8px);
             text-align: center;
+            transition: all 0.3s ease;
+        }
+        .countdown-container.live {
+            background: linear-gradient(135deg, rgba(46, 255, 138, 0.2), rgba(46, 255, 138, 0.08));
+            border: 1px solid #2eff8a;
+            box-shadow: 0 0 20px rgba(46, 255, 138, 0.3);
         }
         .countdown-label {
             font-size: 0.75rem;
@@ -152,7 +158,11 @@
             letter-spacing: 3px;
             font-weight: 600;
             color: #ff8aa0;
-            margin-bottom: 0.5rem;
+            transition: all 0.3s;
+        }
+        .countdown-container.live .countdown-label {
+            color: #2eff8a;
+            text-shadow: 0 0 5px #2eff8a;
         }
         .countdown-timer {
             display: flex;
@@ -167,6 +177,11 @@
             min-width: 70px;
             backdrop-filter: blur(4px);
             border-bottom: 2px solid #ff3355;
+            transition: all 0.3s;
+        }
+        .countdown-container.live .countdown-block {
+            border-bottom-color: #2eff8a;
+            background: rgba(0, 0, 0, 0.6);
         }
         .countdown-number {
             font-size: 2rem;
@@ -175,6 +190,11 @@
             letter-spacing: 2px;
             color: #ffffff;
             text-shadow: 0 0 10px #ff3355;
+            transition: all 0.3s;
+        }
+        .countdown-container.live .countdown-number {
+            text-shadow: 0 0 10px #2eff8a;
+            color: #2eff8a;
         }
         .countdown-unit {
             font-size: 0.65rem;
@@ -183,10 +203,23 @@
             margin-top: 4px;
         }
         .countdown-ended {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #2eff8a;
+            text-shadow: 0 0 15px #2eff8a;
+            animation: pulse-green 1s infinite;
+        }
+        @keyframes pulse-green {
+            0% { text-shadow: 0 0 5px #2eff8a; }
+            50% { text-shadow: 0 0 20px #2eff8a; }
+            100% { text-shadow: 0 0 5px #2eff8a; }
+        }
+        .tournament-name-live {
+            margin-top: 10px;
+            font-size: 1rem;
             font-weight: 700;
             color: #2eff8a;
-            text-shadow: 0 0 10px #2eff8a;
+            letter-spacing: 1px;
         }
 
         /* SLOT WARNING */
@@ -420,15 +453,16 @@
         <div style="width: 80px;"></div>
     </div>
 
-    <!-- GLOBAL COUNTDOWN - DU KANNST DAS DATUM HIER ÄNDERN! -->
-    <div class="countdown-container">
-        <div class="countdown-label"><i class="fas fa-hourglass-half"></i> TOURNAMENT STARTS IN</div>
+    <!-- GLOBAL COUNTDOWN - 25K RIVALS RUSH TOURNAMENT -->
+    <div class="countdown-container" id="countdownContainer">
+        <div class="countdown-label" id="countdownLabel"><i class="fas fa-hourglass-half"></i> 25.000 ROBUX RIVALS RUSH TOURNAMENT</div>
         <div id="countdownTimer" class="countdown-timer">
             <div class="countdown-block"><div class="countdown-number" id="days">00</div><div class="countdown-unit">DAYS</div></div>
             <div class="countdown-block"><div class="countdown-number" id="hours">00</div><div class="countdown-unit">HOURS</div></div>
             <div class="countdown-block"><div class="countdown-number" id="minutes">00</div><div class="countdown-unit">MINUTES</div></div>
             <div class="countdown-block"><div class="countdown-number" id="seconds">00</div><div class="countdown-unit">SECONDS</div></div>
         </div>
+        <div id="liveMessage" style="display: none;" class="tournament-name-live"></div>
     </div>
 
     <div class="slot-warning">
@@ -498,15 +532,10 @@
 <script>
     (function(){
         // ============================================================
-        // 🔴🔴🔴 COUNTDOWN KONTROLLE - HIER STELLST DU DAS DATUM EIN 🔴🔴🔴
+        // 🟢🟢🟢 COUNTDOWN AUF 1. MAI 2026 UM 20:00 UHR 🟢🟢🟢
         // ============================================================
-        // ÄNDERE DIESES DATUM auf deinen gewünschten Startzeitpunkt!
-        // Format: Jahr, Monat (0=Januar, 11=Dezember), Tag, Stunde, Minute, Sekunde
-        const targetDate = new Date(2026, 4, 15, 18, 0, 0); // 15. Mai 2026 um 18:00 Uhr
-        
-        // ODER benutze dieses Format für genauen String:
-        // const targetDate = new Date("May 20, 2026 20:00:00").getTime();
-        // ============================================================
+        // Jahr, Monat (0=Januar, 4=Mai), Tag, Stunde, Minute, Sekunde
+        const targetDate = new Date(2026, 4, 1, 20, 0, 0); // 1. Mai 2026 um 20:00 Uhr
         
         // DISCORD WEBHOOK (für Admins)
         const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/REPLACE_ME_WITH_YOUR_WEBHOOK_URL";
@@ -524,8 +553,14 @@
         const teamMember3 = document.getElementById('teamMember3');
         const teamMember4 = document.getElementById('teamMember4');
         const dynamicNotice = document.getElementById('dynamicAdminNotice');
+        const countdownContainer = document.getElementById('countdownContainer');
+        const countdownLabel = document.getElementById('countdownLabel');
+        const liveMessageDiv = document.getElementById('liveMessage');
+        const timerDiv = document.getElementById('countdownTimer');
 
-        // ========== COUNTDOWN FUNKTION ==========
+        // ========== COUNTDOWN FUNKTION MIT LIVE-MODUS ==========
+        let isLive = false;
+        
         function updateCountdown() {
             const now = new Date().getTime();
             const distance = targetDate - now;
@@ -534,25 +569,51 @@
             const hoursEl = document.getElementById('hours');
             const minutesEl = document.getElementById('minutes');
             const secondsEl = document.getElementById('seconds');
-            const countdownContainer = document.querySelector('.countdown-timer');
             
-            if (distance < 0) {
-                // Countdown ist abgelaufen
-                if (countdownContainer) {
-                    countdownContainer.innerHTML = '<div class="countdown-ended"><i class="fas fa-check-circle"></i> TOURNAMENT IS LIVE! JOIN NOW!</div>';
+            if (distance < 0 && !isLive) {
+                // COUNTDOWN IST ABGELAUFEN - LIVE MODUS AKTIVIEREN
+                isLive = true;
+                
+                // Container grün machen
+                if (countdownContainer) countdownContainer.classList.add('live');
+                
+                // Label ändern
+                if (countdownLabel) {
+                    countdownLabel.innerHTML = '<i class="fas fa-fire"></i> 🔴 LIVE NOW 🔴 <i class="fas fa-fire"></i>';
+                    countdownLabel.style.color = '#2eff8a';
+                    countdownLabel.style.textShadow = '0 0 10px #2eff8a';
+                }
+                
+                // Timer ausblenden, Live-Text einblenden
+                if (timerDiv) timerDiv.style.display = 'none';
+                if (liveMessageDiv) {
+                    liveMessageDiv.style.display = 'block';
+                    liveMessageDiv.innerHTML = '<i class="fas fa-trophy"></i> 25.0K ROBUX TOURNAMENT LIVE NOW! <i class="fas fa-trophy"></i><br><span style="font-size:0.8rem;">Join the Rivals Rush now!</span>';
+                    liveMessageDiv.style.animation = 'pulse-green 1s infinite';
                 }
                 return;
             }
             
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-            
-            if (daysEl) daysEl.textContent = String(days).padStart(2, '0');
-            if (hoursEl) hoursEl.textContent = String(hours).padStart(2, '0');
-            if (minutesEl) minutesEl.textContent = String(minutes).padStart(2, '0');
-            if (secondsEl) secondsEl.textContent = String(seconds).padStart(2, '0');
+            if (!isLive && distance > 0) {
+                // Normaler Countdown läuft
+                if (timerDiv) timerDiv.style.display = 'flex';
+                if (liveMessageDiv) liveMessageDiv.style.display = 'none';
+                if (countdownContainer) countdownContainer.classList.remove('live');
+                if (countdownLabel) {
+                    countdownLabel.innerHTML = '<i class="fas fa-hourglass-half"></i> 25.000 ROBUX RIVALS RUSH TOURNAMENT';
+                    countdownLabel.style.color = '';
+                }
+                
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                
+                if (daysEl) daysEl.textContent = String(days).padStart(2, '0');
+                if (hoursEl) hoursEl.textContent = String(hours).padStart(2, '0');
+                if (minutesEl) minutesEl.textContent = String(minutes).padStart(2, '0');
+                if (secondsEl) secondsEl.textContent = String(seconds).padStart(2, '0');
+            }
         }
         
         // Countdown jede Sekunde aktualisieren
@@ -688,7 +749,7 @@
             if (globalLoader) globalLoader.classList.add('hidden-loader');
             setTimeout(function() {
                 mainContainer.classList.add('loaded');
-                showToast("Welcome to RobloxComp", false, 2000);
+                showToast("Welcome to RobloxComp | 25K Tournament", false, 2000);
             }, 200);
         }, 1000);
 
